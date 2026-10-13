@@ -23,7 +23,7 @@ export default function CTA() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative py-36 px-6 md:px-12 bg-background overflow-hidden text-center flex flex-col items-center justify-center border-t border-white/5"
+      className="relative py-36 px-6 md:px-12 bg-boxes overflow-hidden text-center flex flex-col items-center justify-center border-t border-white/5"
     >
       {/* Interactive Cursor Spotlight Glow */}
       <div

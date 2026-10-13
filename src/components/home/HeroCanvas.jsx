@@ -118,13 +118,15 @@ function WireframeMesh() {
   );
 }
 
-export default function HeroCanvas() {
+export default function HeroCanvas({ isPaused = false, eventSource }) {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
       <Canvas
+        eventSource={eventSource}
         camera={{ position: [0, 0, 5], fov: 50 }}
         gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
         dpr={[1, 1.5]} // optimize for 60fps on retina
+        frameloop={isPaused ? "never" : "always"}
       >
         <ambientLight intensity={0.5} />
         <ParticleField />

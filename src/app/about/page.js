@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-[80vh] flex flex-col items-center justify-center px-6 text-center pt-32 pb-20">
+    <main className="min-h-[80vh] bg-background flex flex-col items-center justify-center px-6 text-center pt-32 pb-20">
       <div className="max-w-xl mx-auto space-y-6">
         <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#ff3366]">
           ORIGINS & LEADERSHIP

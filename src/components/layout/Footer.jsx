@@ -38,7 +38,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-navy-darker text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10 overflow-hidden">
+    <footer className="relative bg-navy-darker bg-boxes text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10 overflow-hidden">
       {/* Ambient background glow */}
       <div className="ambient-glow -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary/15" />
 
@@ -48,11 +48,13 @@ export default function Footer() {
           {/* Col 1: Agency mission & live time */}
           <div className="md:col-span-5 flex flex-col justify-between space-y-6">
             <div>
-              <Link href="/" className="inline-block mb-6 group">
+              <Link
+                href="/"
+                className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/95 hover:bg-white shadow-lg border border-white/40 mb-6 group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/20"
+              >
                 <Logo
-                  variant="light"
-                  width={220}
-                  className="h-14 sm:h-16 w-auto transition-transform duration-300 group-hover:scale-105"
+                  variant="dark"
+                  className="h-10 sm:h-12 w-auto transition-transform duration-300"
                 />
               </Link>
               <div className="flex items-center gap-2 mb-4">
@@ -121,13 +123,14 @@ export default function Footer() {
         {/* Massive Interactive Agency Wordmark with Logo */}
         <div className="py-16 md:py-24 text-center select-none overflow-hidden group">
           <Link href="/" className="inline-flex flex-col items-center justify-center gap-6" data-cursor="pointer">
-            <Logo
-              markOnly
-              variant="light"
-              width={100}
-              height={100}
-              className="w-20 h-20 sm:w-24 sm:h-24 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_0_35px_rgba(176,119,45,0.45)]"
-            />
+            <div className="p-3 sm:p-4 rounded-3xl bg-white/95 shadow-2xl shadow-primary/20 border border-white/40 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6">
+              <Logo
+                markOnly
+                width={80}
+                height={80}
+                className="w-16 h-16 sm:w-20 sm:h-20"
+              />
+            </div>
             <h2 className="font-display text-[14vw] font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white/90 via-white/50 to-white/10 hover:from-primary hover:via-primary-light hover:to-white transition-all duration-700 uppercase">
               {SITE_NAME}
             </h2>

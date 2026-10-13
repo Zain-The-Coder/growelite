@@ -1,4 +1,4 @@
-import { Syne, Plus_Jakarta_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import Navbar from "@/components/layout/Navbar";
@@ -8,15 +8,10 @@ import Cursor from "@/components/layout/Cursor";
 import Preloader from "@/components/layout/Preloader";
 import PageTransition from "@/components/layout/PageTransition";
 
-const syne = Syne({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-syne",
-  display: "swap",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -54,13 +49,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${jakarta.variable} dark`}
+      className={`${poppins.variable} dark`}
       style={{
-        "--font-display": "var(--font-syne), 'Syne', sans-serif",
-        "--font-sans": "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif",
+        "--font-display": "var(--font-poppins), 'Poppins', sans-serif",
+        "--font-sans": "var(--font-poppins), 'Poppins', sans-serif",
       }}
     >
-      <body className="min-h-screen bg-background text-white antialiased selection:bg-primary selection:text-white flex flex-col justify-between overflow-x-hidden">
+      <body className="min-h-screen bg-background text-white antialiased selection:bg-primary selection:text-white flex flex-col justify-between overflow-x-hidden font-sans">
         {/* Film grain noise texture */}
         <div className="noise-overlay" />
 

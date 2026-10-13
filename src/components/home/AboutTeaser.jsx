@@ -1,19 +1,58 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import MagneticButton from "@/components/ui/MagneticButton";
 
+// Lazy-load Three.js particle canvas with zero SSR overhead
+const HeroCanvas = dynamic(() => import("./HeroCanvas"), {
+  ssr: false,
+});
+
 const MANIFESTO_TEXT =
-  "We reject generic corporate monotony. In an era saturated with commoditized templates, true brand velocity demands unreasonable aesthetic precision, custom interaction design, and unrelenting technical architecture. We transform ambitious enterprises into cultural juggernauts.";
+  "Most agencies sell templates and promises. We build digital growth systems that increase your revenue in 3 to 4 months.";
 
 export default function AboutTeaser() {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const imageRef = useRef(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // Trigger mounting when approaching the section to ensure smooth appearance
+    const nearObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+        }
+      },
+      { rootMargin: "400px" }
+    );
+
+    // Track active visibility to pause rendering when off-screen
+    const viewObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    nearObserver.observe(el);
+    viewObserver.observe(el);
+
+    return () => {
+      nearObserver.disconnect();
+      viewObserver.disconnect();
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -69,7 +108,17 @@ export default function AboutTeaser() {
       ref={containerRef}
       className="relative py-32 px-6 md:px-12 bg-background overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
+      {/* 3D Wireframe & Particle Sphere Animation (anchored to right half, fills empty area next to text) */}
+      {isNearViewport && (
+        <div
+          className="absolute top-1/2 -translate-y-1/2 right-[-10%] sm:right-[-6%] lg:right-[-4%] w-[85%] sm:w-[70%] lg:w-[52%] aspect-square max-w-[850px] pointer-events-none z-0 opacity-25 lg:opacity-100 transition-opacity duration-700"
+          aria-hidden="true"
+        >
+          <HeroCanvas isPaused={!isInView} eventSource={containerRef} />
+        </div>
+      )}
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-16 font-mono text-xs uppercase tracking-[0.25em] text-primary">
           <span className="w-8 h-[1px] bg-primary" />
@@ -103,46 +152,6 @@ export default function AboutTeaser() {
               <div className="flex items-center gap-3 text-white/50 font-mono text-xs uppercase">
                 <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
                 <span>Zero Templates • 100% Bespoke Code</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Parallax Card with Clip-Path Reveal */}
-          <div className="lg:col-span-5 relative">
-            <div
-              ref={imageRef}
-              className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-surface via-surface-elevated to-navy-dark border border-white/10 p-8 shadow-2xl transition-all duration-300"
-            >
-              {/* Graphic Composition Placeholder Visual */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-tr from-primary/20 via-surface to-primary-light/10 flex flex-col justify-between p-8 border border-white/10">
-                <div className="flex justify-between items-start font-mono text-xs text-white/60">
-                  <span className="uppercase">EST. 2014 // LAB</span>
-                  <span>SYSTEM // V.4</span>
-                </div>
-
-                {/* Geometric Central Monogram */}
-                <div className="flex flex-col items-center justify-center my-auto text-center">
-                  <div className="w-24 h-24 rounded-full border border-primary/40 flex items-center justify-center relative mb-4 bg-navy-dark/60">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-80 animate-pulse" />
-                    <span className="absolute font-display font-black text-2xl text-white">GE</span>
-                  </div>
-                  <span className="text-white font-display font-bold text-xl uppercase tracking-wider">
-                    GROW ELITE
-                  </span>
-                  <span className="text-primary-light text-xs font-mono mt-1">
-                    DIGITAL INNOVATION
-                  </span>
-                </div>
-
-                <div className="border-t border-white/10 pt-4 flex justify-between items-center font-mono text-xs text-white/50">
-                  <span>LATENCY: 8.2MS</span>
-                  <span className="text-primary-light font-bold">60 FPS LOCKED</span>
-                </div>
-              </div>
-
-              <div className="mt-6 flex items-center justify-between text-xs font-mono text-white/60">
-                <span className="uppercase text-white/80">CORE VALUES</span>
-                <span className="text-primary-light">01 // RELENTLESS PERFECTION</span>
               </div>
             </div>
           </div>

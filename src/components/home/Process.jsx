@@ -36,7 +36,7 @@ export default function Process() {
   return (
     <section
       ref={containerRef}
-      className="relative py-32 px-6 md:px-12 bg-background overflow-hidden"
+      className="relative py-32 px-6 md:px-12 bg-boxes overflow-hidden"
     >
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}

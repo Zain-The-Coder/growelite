@@ -36,8 +36,8 @@
   --color-text-muted: rgba(255, 255, 255, 0.52);
 
   /* Fonts (set by next/font in layout.js) */
-  --font-display: "Syne", system-ui, -apple-system, sans-serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Poppins", system-ui, -apple-system, sans-serif;
+  --font-sans: "Poppins", system-ui, -apple-system, sans-serif;
 }
 
 :root {
@@ -85,6 +85,10 @@ html {
 
 body {
   background-color: var(--color-background);
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 50px 50px;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
 }
@@ -158,6 +162,15 @@ html.lenis body {
 /* Small gold text needs a lighter gold for contrast on navy */
 .text-gold-small {
   color: var(--color-primary-light);
+}
+
+/* ---------- Tech boxes (grid) background ---------- */
+.bg-boxes {
+  background-color: var(--color-background);
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 
 /* ---------- Section rhythm (alternate backgrounds, no hard seams) ---------- */

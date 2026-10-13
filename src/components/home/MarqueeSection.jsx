@@ -5,7 +5,7 @@ import { siteConfig } from "@/data/site";
 
 export default function MarqueeSection() {
   return (
-    <section id="marquee-section" className="py-12 bg-navy-dark border-y border-white/10 overflow-hidden">
+    <section id="marquee-section" className="py-12 bg-navy-dark bg-boxes border-y border-white/10 overflow-hidden">
       <div className="flex flex-col gap-6">
         {/* Top Track: Keywords / Capabilities */}
         <Marquee

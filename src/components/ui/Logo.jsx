@@ -2,75 +2,56 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * GrowElite brand Logo component.
+ * GrowElite Logo component.
  *
- * Automatically chooses:
- * - /logo-light.png on dark backgrounds (default for this dark theme)
- * - /logo.png on light backgrounds
- * - /logo-mark.png (or /logo-mark-light.png) for symbol-only
+ * Files expected in /public:
+ *  - /logo-light.png  -> for dark backgrounds (default)
+ *  - /logo.png        -> for light backgrounds (variant="dark" or "on-light")
+ *  - /logo-mark.png   -> symbol only (markOnly)
  *
- * @param {Object} props
- * @param {"light" | "dark"} [props.variant="light"]
- *   - "light" (or onDark={true}): white & gold logo for dark backgrounds
- *   - "dark" (or onLight={true}): navy & gold logo for light backgrounds
- * @param {boolean} [props.onDark] - Explicitly specify dark background
- * @param {boolean} [props.onLight] - Explicitly specify light background
- * @param {boolean} [props.markOnly=false] - Only render the icon/symbol mark
- * @param {number} [props.width=160] - Width in px
- * @param {number} [props.height] - Optional explicit height in px
- * @param {string} [props.className] - Additional styling classes
- * @param {boolean} [props.priority=false] - Priority loading flag for Next/image
- * @param {string} [props.alt="GrowElite - Digital Innovation"] - Image alt text
+ * @param {boolean} [markOnly=false] - Render only the symbol
+ * @param {number}  [width=320]      - Display width in px (height follows the real aspect ratio)
+ * @param {number}  [height]         - Optional explicit display height in px
+ * @param {string}  [className]      - Extra classes
+ * @param {boolean} [priority=false] - Preload (use in Navbar and Preloader)
  */
 export default function Logo({
-  variant = "light",
-  onDark,
-  onLight,
+  variant,
   markOnly = false,
-  width = 160,
+  width = 80,
   height,
   className = "",
   priority = false,
   alt = "GrowElite - Digital Innovation",
+  style,
   ...props
 }) {
-  // Determine if logo is rendered on a dark or light background
-  const isDarkBackground =
-    onDark === true ||
-    (onLight !== true && (variant === "light" || variant === "on-dark" || variant === "default"));
+  const isLightBackground = variant === "dark" || variant === "on-light";
 
-  if (markOnly) {
-    const markSrc = isDarkBackground ? "/logo-mark-light.png" : "/logo-mark.png";
-    const markWidth = width || 48;
-    const markHeight = height || markWidth;
+  const src = markOnly
+    ? "/logo-mark.png"
+    : isLightBackground
+      ? "/logo-original.png"
+      : "/logo-original.png";
 
-    return (
-      <Image
-        src={markSrc}
-        alt={alt}
-        width={markWidth}
-        height={markHeight}
-        priority={priority}
-        className={cn("object-contain inline-block", className)}
-        {...props}
-      />
-    );
-  }
-
-  const src = isDarkBackground ? "/logo-light.png" : "/logo.png";
-  const naturalWidth = 503;
-  const naturalHeight = 361;
-  const calculatedHeight = height || Math.round(width * (naturalHeight / naturalWidth));
+  // Display size. If only width is given, height follows the image's real ratio.
+  const displayStyle = height
+    ? { width, height }
+    : { width, height: "auto" };
 
   return (
     <Image
       src={src}
       alt={alt}
+      // Intrinsic size hint only. Real ratio comes from the file itself
+      // because CSS height is "auto", so the logo is never stretched.
       width={width}
-      height={calculatedHeight}
+      height={height ?? width}
+      quality={100}
       priority={priority}
-      className={cn("object-contain inline-block", className)}
-      style={{ aspectRatio: `${naturalWidth} / ${naturalHeight}` }}
+      sizes={`${width}px`}
+      className={cn("object-contain inline-block select-none max-w-none", className)}
+      style={{ ...displayStyle, ...style }}
       {...props}
     />
   );

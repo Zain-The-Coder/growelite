@@ -94,14 +94,15 @@ export default function Preloader() {
                 transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
                 className="mb-5 relative"
               >
-                <Logo
-                  markOnly
-                  variant="light"
-                  width={140}
-                  height={140}
-                  priority
-                  className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-[0_0_35px_rgba(176,119,45,0.45)]"
-                />
+                <div className="p-4 sm:p-5 rounded-3xl bg-white/95 shadow-2xl shadow-primary/30 border border-white/40 inline-flex items-center justify-center">
+                  <Logo
+                    markOnly
+                    width={90}
+                    height={90}
+                    priority
+                    className="w-16 h-16 sm:w-20 sm:h-20"
+                  />
+                </div>
               </motion.div>
 
               {/* 2. Wordmark slides up through overflow mask */}
@@ -112,12 +113,13 @@ export default function Preloader() {
                   transition={{ delay: 0.3, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                   className="flex items-center justify-center"
                 >
-                  <Logo
-                    variant="light"
-                    width={320}
-                    priority
-                    className="h-16 sm:h-20 md:h-24 w-auto drop-shadow-[0_4px_25px_rgba(255,255,255,0.18)]"
-                  />
+                  <div className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl bg-white/95 shadow-2xl shadow-black/40 border border-white/40 inline-flex items-center justify-center">
+                    <Logo
+                      variant="dark"
+                      priority
+                      className="h-11 sm:h-13 md:h-15 w-auto"
+                    />
+                  </div>
                 </motion.div>
               </div>
 

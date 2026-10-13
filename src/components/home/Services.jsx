@@ -122,7 +122,7 @@ export default function Services() {
   const [activeCard, setActiveCard] = useState(0);
 
   return (
-    <section className="py-32 px-6 md:px-12 bg-background relative overflow-hidden">
+    <section className="py-32 px-6 md:px-12 bg-boxes relative overflow-hidden">
       {/* Background glow orbs */}
       <div className="ambient-glow top-1/2 left-0 w-[500px] h-[500px] bg-primary/10 -translate-y-1/2" />
 

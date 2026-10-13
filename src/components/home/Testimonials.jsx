@@ -19,7 +19,7 @@ export default function Testimonials() {
   const current = reviewsData[currentIndex];
 
   return (
-    <section className="py-32 px-6 md:px-12 bg-background relative overflow-hidden border-t border-white/5">
+    <section className="py-32 px-6 md:px-12 bg-boxes relative overflow-hidden border-t border-white/5">
       <div className="ambient-glow top-1/3 -right-40 w-[600px] h-[600px] bg-primary/10" />
 
       <div className="max-w-5xl mx-auto relative z-10">

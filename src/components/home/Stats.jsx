@@ -6,7 +6,7 @@ import { statsData } from "@/data/stats";
 
 export default function Stats() {
   return (
-    <section className="py-28 px-6 md:px-12 bg-background border-y border-white/5 relative overflow-hidden">
+    <section className="py-28 px-6 md:px-12 bg-boxes border-y border-white/5 relative overflow-hidden">
       <div className="ambient-glow -top-32 right-1/4 w-[500px] h-[500px] bg-primary/10" />
 
       <div className="max-w-7xl mx-auto relative z-10">

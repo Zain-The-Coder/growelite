@@ -11,11 +11,10 @@ export const siteConfig = {
   phone: "+1 (888) 492-7483",
   address: "740 Broadway, 11th Floor, New York, NY 10003",
   navLinks: [
-    { label: "Work", href: "/portfolio" },
-    { label: "Services", href: "/services" },
-    { label: "About", href: "/about" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Services", href: "/services" },
     { label: "Reviews", href: "/reviews" },
-    { label: "Contact", href: "/contact" },
+    { label: "Our Work", href: "/portfolio" },
   ],
   socials: [
     { label: "X / Twitter", href: "https://twitter.com", handle: "@growelite" },

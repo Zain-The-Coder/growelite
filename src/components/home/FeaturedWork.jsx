@@ -50,7 +50,7 @@ export default function FeaturedWork() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background overflow-hidden min-h-screen flex flex-col justify-center"
+      className="relative bg-boxes overflow-hidden min-h-screen flex flex-col justify-center"
     >
       {/* Top Header Row inside the pinned section */}
       <div className="pt-16 pb-8 px-6 md:px-16 w-full max-w-7xl mx-auto flex items-end justify-between">
@@ -146,27 +146,6 @@ export default function FeaturedWork() {
             </Link>
           ))}
 
-          {/* End Card - Explore All Archive */}
-          <div className="w-[300px] sm:w-[380px] h-[480px] rounded-3xl border border-dashed border-white/20 bg-surface/40 p-8 flex flex-col justify-between items-center text-center shrink-0">
-            <div className="w-12 h-12 rounded-full border border-primary/40 flex items-center justify-center my-auto">
-              <Sparkles className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <h4 className="font-display text-2xl font-bold uppercase text-white mb-2">
-                FULL ARCHIVE
-              </h4>
-              <p className="text-xs font-mono text-white/50 mb-6">
-                Explore 40+ case studies across AI, e-commerce, and high-growth fintech.
-              </p>
-              <MagneticButton
-                href="/portfolio"
-                variant="primary"
-                className="text-xs uppercase font-mono tracking-wider py-3 px-6"
-              >
-                View All Projects
-              </MagneticButton>
-            </div>
-          </div>
         </div>
       </div>
     </section>
