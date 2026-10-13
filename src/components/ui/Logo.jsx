@@ -31,8 +31,8 @@ export default function Logo({
   const src = markOnly
     ? "/logo-mark.png"
     : isLightBackground
-      ? "/logo-original.png"
-      : "/logo-original.png";
+      ? "/logo.png"
+      : "/logo.png";
 
   // Display size. If only width is given, height follows the image's real ratio.
   const displayStyle = height

@@ -166,7 +166,7 @@ export default function Navbar() {
         }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 bg-[#0b1626]/60 backdrop-blur-xl border-b border-[#c9a063]/20 overflow-visible",
+          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 bg-[#534a3a]/80 backdrop-blur-xl border-b border-[#c9a063]/20 overflow-visible",
           isScrolled
             ? "shadow-xl shadow-black/20 py-3 sm:py-3.5"
             : "shadow-md py-4 sm:py-5"
