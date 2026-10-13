@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  *  - /logo-mark.png   -> symbol only (markOnly)
  *
  * @param {boolean} [markOnly=false] - Render only the symbol
- * @param {number}  [width=320]      - Display width in px (height follows the real aspect ratio)
+ * @param {number}  [width=160]      - Display width in px (height follows the real aspect ratio)
  * @param {number}  [height]         - Optional explicit display height in px
  * @param {string}  [className]      - Extra classes
  * @param {boolean} [priority=false] - Preload (use in Navbar and Preloader)
