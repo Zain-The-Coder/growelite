@@ -1,0 +1,35 @@
+export const statsData = [
+  {
+    id: "stat-1",
+    value: 180,
+    prefix: "$",
+    suffix: "M+",
+    label: "Client Revenue Generated",
+    sublabel: "Across direct-to-consumer and enterprise SaaS clients worldwide.",
+  },
+  {
+    id: "stat-2",
+    value: 99.4,
+    prefix: "",
+    suffix: "%",
+    decimals: 1,
+    label: "Client Retention Rate",
+    sublabel: "Long-term engineering and continuous creative partnership.",
+  },
+  {
+    id: "stat-3",
+    value: 48,
+    prefix: "",
+    suffix: "+",
+    label: "Global Design & Tech Awards",
+    sublabel: "Awwwards SOTD, FWA of the Day, Webby Nominees, and CSSDA honors.",
+  },
+  {
+    id: "stat-4",
+    value: 12,
+    prefix: "",
+    suffix: "+",
+    label: "Years of Relentless Craft",
+    sublabel: "Pushing the boundary between digital art and high-throughput systems.",
+  },
+];

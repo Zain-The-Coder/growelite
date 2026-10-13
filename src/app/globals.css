@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/* ==========================================================
+   GrowElite theme: ONLY 2 brand colors
+   Primary (gold/bronze): #b0772d
+   Background (navy):     #192e41
+   Everything else is a tint/shade derived from these two.
+   ========================================================== */
+
+@theme {
+  /* Brand base (the only hardcoded colors in the project) */
+  --color-primary: #b0772d;
+  --color-background: #192e41;
+
+  /* Gold shades */
+  --color-primary-light: color-mix(in srgb, var(--color-primary) 78%, white);
+  --color-primary-lighter: color-mix(in srgb, var(--color-primary) 55%, white);
+  --color-primary-dark: color-mix(in srgb, var(--color-primary) 75%, black);
+  --color-primary-muted: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  --color-primary-glow: color-mix(in srgb, var(--color-primary) 28%, transparent);
+
+  /* Navy shades */
+  --color-surface: color-mix(in srgb, var(--color-background) 90%, white);
+  --color-surface-elevated: color-mix(in srgb, var(--color-background) 82%, white);
+  --color-navy-dark: color-mix(in srgb, var(--color-background) 82%, black);
+  --color-navy-darker: color-mix(in srgb, var(--color-background) 62%, black);
+
+  /* Borders */
+  --color-surface-border: rgba(255, 255, 255, 0.08);
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+  --color-border-primary: color-mix(in srgb, var(--color-primary) 40%, transparent);
+
+  /* Text */
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.78);
+  --color-text-muted: rgba(255, 255, 255, 0.52);
+
+  /* Fonts (set by next/font in layout.js) */
+  --font-display: "Syne", system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  /* Semantic aliases used across components */
+  --bg-primary: var(--color-background);
+  --bg-surface: var(--color-surface);
+  --bg-surface-elevated: var(--color-surface-elevated);
+  --bg-surface-glass: color-mix(in srgb, var(--color-surface) 75%, transparent);
+  --bg-surface-border: var(--color-surface-border);
+
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+
+  --accent-primary: var(--color-primary);
+  --accent-secondary: var(--color-primary-light);
+
+  /* Gradients (all built from the brand colors) */
+  --gradient-accent: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-light) 55%,
+    var(--color-primary-lighter) 100%
+  );
+  --gradient-gold: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  --gradient-navy: linear-gradient(180deg, var(--color-background) 0%, var(--color-navy-dark) 100%);
+  --gradient-glow: radial-gradient(
+    circle at 50% 50%,
+    var(--color-primary-glow) 0%,
+    transparent 65%
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--color-background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  scroll-behavior: auto;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Lenis smooth scroll ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ---------- Typography helpers ---------- */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Gold gradient text.
+   The -purple / -cyan names are kept only as aliases so existing components
+   don't break. They now render gold. Replace them with .text-gradient later. */
+.text-gradient,
+.text-gradient-purple,
+.text-gradient-cyan {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Small gold text needs a lighter gold for contrast on navy */
+.text-gold-small {
+  color: var(--color-primary-light);
+}
+
+/* ---------- Section rhythm (alternate backgrounds, no hard seams) ---------- */
+.section-base {
+  background: var(--color-background);
+}
+
+.section-dark {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-navy-dark) 20%,
+    var(--color-navy-dark) 80%,
+    var(--color-background) 100%
+  );
+}
+
+.section-surface {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-surface) 20%,
+    var(--color-surface) 80%,
+    var(--color-background) 100%
+  );
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-surface-border);
+  border-radius: 1.25rem;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.card:hover {
+  border-color: var(--color-border-primary);
+  box-shadow: 0 0 40px var(--color-primary-muted);
+}
+
+/* ---------- Film grain ---------- */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Ambient glow orb (gold) ---------- */
+.ambient-glow {
+  position: absolute;
+  border-radius: 9999px;
+  background: var(--color-primary-glow);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Soft gold glow behind the hero */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glow);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
