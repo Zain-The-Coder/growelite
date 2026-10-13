@@ -13,6 +13,7 @@ export const siteConfig = {
   navLinks: [
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
+    { label: "Our Team", href: "/team" },
     { label: "Reviews", href: "/reviews" },
     { label: "Our Work", href: "/portfolio" },
   ],
