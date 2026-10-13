@@ -194,8 +194,8 @@ export default function Navbar() {
               className={cn(
                 "w-auto transition-all duration-300",
                 isScrolled
-                  ? "h-[36px] sm:h-[40px] md:h-[46px]"
-                  : "h-[42px] sm:h-[50px] md:h-[58px]"
+                  ? "h-[56px] sm:h-[40px] md:h-[56px]"
+                  : "h-[52px] sm:h-[50px] md:h-[88px]"
               )}
             />
           </Link>
