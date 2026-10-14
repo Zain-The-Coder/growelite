@@ -10,8 +10,6 @@ import {
 } from "@/lib/emailTemplates";
 import { contact } from "@/data/site";
 
-export const runtime = "nodejs";
-
 // In-memory rate limiting map: ip -> Array of timestamps
 // NOTE: On distributed serverless runtimes this in-memory store is per-instance / best-effort.
 // In high-scale production, replace with Upstash Redis or durable key-value store.
