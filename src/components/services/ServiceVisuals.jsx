@@ -684,10 +684,10 @@ export function ContentWritingVisual() {
 // 14. GRAPHIC DESIGNING: Design System Swatches & Tokens
 export function GraphicDesignVisual() {
   const swatches = [
-    { label: "Primary Gold", hex: "#B0772D", bg: "bg-[#b0772d]" },
-    { label: "Background Navy", hex: "#192E41", bg: "bg-[#192e41]" },
-    { label: "Gold Light", hex: "#C9A063", bg: "bg-[#c9a063]" },
-    { label: "Darker Navy", hex: "#0B1626", bg: "bg-[#0b1626]" },
+    { label: "Primary Gold", hex: "#AF8339", style: { backgroundColor: "var(--color-primary)" } },
+    { label: "Dominant Black", hex: "#17181A", style: { backgroundColor: "var(--color-background)" } },
+    { label: "Slate Blue", hex: "#54677B", style: { backgroundColor: "var(--color-secondary)" } },
+    { label: "Gold Light", hex: "#D4A259", style: { backgroundColor: "var(--color-primary-light)" } },
   ];
 
   return (
@@ -704,7 +704,8 @@ export function GraphicDesignVisual() {
         {swatches.map((swatch) => (
           <div key={swatch.hex} className="space-y-1.5">
             <div
-              className={`w-full h-16 rounded-xl ${swatch.bg} border border-white/20 shadow-md flex items-end p-1.5`}
+              className="w-full h-16 rounded-xl border border-white/20 shadow-md flex items-end p-1.5"
+              style={swatch.style}
             />
             <div className="text-[10px] font-mono text-white/80 font-bold">{swatch.hex}</div>
             <div className="text-[9px] font-mono text-white/40 truncate">{swatch.label}</div>

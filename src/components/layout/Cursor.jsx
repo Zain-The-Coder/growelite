@@ -118,14 +118,14 @@ export default function Cursor() {
           width: isView ? 68 : isPointer ? 22 : 8,
           height: isView ? 68 : isPointer ? 22 : 8,
           backgroundColor: isView
-            ? "rgba(176, 119, 45, 0.95)"
+            ? "color-mix(in srgb, var(--color-primary) 95%, transparent)"
             : isPointer
-            ? "rgba(176, 119, 45, 0.3)"
-            : "#b0772d",
+            ? "var(--color-primary-muted)"
+            : "var(--color-primary)",
           borderColor: isView
             ? "rgba(255, 255, 255, 0.6)"
             : isPointer
-            ? "rgba(176, 119, 45, 0.85)"
+            ? "var(--color-border-primary)"
             : "transparent",
           borderWidth: isView ? "1px" : isPointer ? "1.5px" : "0px",
           opacity: isVisible && !isHidden ? 1 : 0,

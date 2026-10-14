@@ -15,6 +15,11 @@ const poppins = Poppins({
   display: "swap",
 });
 
+export const viewport = {
+  themeColor: "#17181a",
+  colorScheme: "dark",
+};
+
 export const metadata = {
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
   description: siteConfig.description,

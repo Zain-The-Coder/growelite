@@ -1,30 +1,37 @@
 @import "tailwindcss";
 
 /* ==========================================================
-   GrowElite theme: ONLY 2 brand colors
-   Primary (gold/bronze): #b0772d
-   Background (navy):     #192e41
-   Everything else is a tint/shade derived from these two.
+   GrowElite theme: Black-dominant + Gold (#af8339) + Slate Blue (#54677b)
+   Background (dominant near-black): #17181a
+   Primary (gold accent):           #af8339
+   Secondary (slate-blue accent):    #54677b
    ========================================================== */
 
 @theme {
-  /* Brand base (the only hardcoded colors in the project) */
-  --color-primary: #b0772d;
-  --color-background: #192e41;
-  --color-neon: #b28021;
+  /* Brand base (the only hardcoded hex colors in the project) */
+  --color-primary: #af8339;
+  --color-secondary: #54677b;
+  --color-background: #17181a;
+  --color-neon: var(--color-primary);
 
-  /* Gold shades */
+  /* Gold shades (tints & shades of #af8339) */
   --color-primary-light: color-mix(in srgb, var(--color-primary) 78%, white);
   --color-primary-lighter: color-mix(in srgb, var(--color-primary) 55%, white);
   --color-primary-dark: color-mix(in srgb, var(--color-primary) 75%, black);
   --color-primary-muted: color-mix(in srgb, var(--color-primary) 20%, transparent);
   --color-primary-glow: color-mix(in srgb, var(--color-primary) 28%, transparent);
 
-  /* Navy shades */
-  --color-surface: color-mix(in srgb, var(--color-background) 90%, white);
-  --color-surface-elevated: color-mix(in srgb, var(--color-background) 82%, white);
-  --color-navy-dark: color-mix(in srgb, var(--color-background) 82%, black);
-  --color-navy-darker: color-mix(in srgb, var(--color-background) 62%, black);
+  /* Secondary slate-blue shades & borders */
+  --color-secondary-light: color-mix(in srgb, var(--color-secondary) 55%, white);
+  --color-secondary-muted: color-mix(in srgb, var(--color-secondary) 20%, transparent);
+  --color-border-secondary: color-mix(in srgb, var(--color-secondary) 40%, transparent);
+
+  /* Near-black surfaces (neutral dark greys, not blue) */
+  --color-surface: color-mix(in srgb, var(--color-background) 94%, white);
+  --color-surface-elevated: color-mix(in srgb, var(--color-background) 88%, white);
+  --color-surface-tint: color-mix(in srgb, var(--color-background) 90%, var(--color-secondary));
+  --color-navy-dark: color-mix(in srgb, var(--color-background) 70%, black);
+  --color-navy-darker: color-mix(in srgb, var(--color-background) 45%, black);
 
   /* Borders */
   --color-surface-border: rgba(255, 255, 255, 0.08);
@@ -43,7 +50,7 @@
 }
 
 :root {
-  --color-neon: #b28021;
+  --color-neon: var(--color-primary);
 
   /* Semantic aliases used across components */
   --bg-primary: var(--color-background);
@@ -58,6 +65,7 @@
 
   --accent-primary: var(--color-primary);
   --accent-secondary: var(--color-primary-light);
+  --accent-supporting: var(--color-secondary);
 
   /* Gradients (all built from the brand colors) */
   --gradient-accent: linear-gradient(
@@ -71,7 +79,8 @@
   --gradient-glow: radial-gradient(
     circle at 50% 50%,
     var(--color-primary-glow) 0%,
-    transparent 65%
+    color-mix(in srgb, var(--color-secondary) 8%, transparent) 40%,
+    transparent 70%
   );
 }
 
@@ -80,6 +89,7 @@
 }
 
 html {
+  color-scheme: dark;
   background-color: var(--color-background);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -124,7 +134,7 @@ html.lenis body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-navy-dark);
+  background: var(--color-navy-darker);
 }
 ::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--color-primary) 50%, transparent);
@@ -209,7 +219,7 @@ html.lenis body {
 /* ---------- Cards ---------- */
 .card {
   background: var(--color-surface);
-  border: 1px solid var(--color-surface-border);
+  border: 1px solid var(--color-border-secondary);
   border-radius: 1.25rem;
   transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }

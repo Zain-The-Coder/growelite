@@ -30,7 +30,7 @@ export default function AboutCTA() {
           className="pointer-events-none absolute w-[400px] h-[400px] sm:w-[650px] sm:h-[650px] rounded-full blur-[100px] sm:blur-[130px] opacity-25 transition-transform duration-200 ease-out"
           style={{
             background:
-              "radial-gradient(circle, rgba(176, 119, 45, 0.6) 0%, rgba(201, 141, 59, 0.2) 50%, transparent 70%)",
+              "radial-gradient(circle, var(--color-primary-glow) 0%, color-mix(in srgb, var(--color-primary-light) 20%, transparent) 50%, transparent 70%)",
             transform: `translate(${mousePos.x * 0.08}px, ${mousePos.y * 0.08}px)`,
           }}
         />

@@ -64,7 +64,7 @@ function ClientCard({ client, index }) {
               left: mousePos.x,
               top: mousePos.y,
               background:
-                "radial-gradient(circle, rgba(176, 119, 45, 0.28) 0%, transparent 70%)",
+                "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)",
             }}
             aria-hidden="true"
           />

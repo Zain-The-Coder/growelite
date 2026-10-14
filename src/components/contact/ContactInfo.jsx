@@ -65,7 +65,7 @@ export default function ContactInfo() {
               left: mousePos1.x,
               top: mousePos1.y,
               background:
-                "radial-gradient(circle, rgba(176, 119, 45, 0.25) 0%, transparent 70%)",
+                "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)",
             }}
             aria-hidden="true"
           />
@@ -224,7 +224,7 @@ export default function ContactInfo() {
               left: mousePos2.x,
               top: mousePos2.y,
               background:
-                "radial-gradient(circle, rgba(176, 119, 45, 0.25) 0%, transparent 70%)",
+                "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)",
             }}
             aria-hidden="true"
           />

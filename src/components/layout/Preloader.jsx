@@ -227,8 +227,8 @@ export default function Preloader() {
                 <Logo
                   priority
                   width={220}
-                  alt="GrowElite"
-                  className="w-[160px] md:w-[220px] h-auto object-contain max-w-full drop-shadow-[0_0_24px_rgba(178,128,33,0.35)]"
+                  alt="GrowElite - Digital Innovation"
+                  className="w-[160px] md:w-[220px] h-auto object-contain max-w-full drop-shadow-[0_0_24px_var(--color-primary-glow)]"
                   style={{
                     width: "clamp(160px, 45vw, 220px)",
                     height: "auto",

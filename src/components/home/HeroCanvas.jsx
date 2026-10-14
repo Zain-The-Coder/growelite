@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { getThemeColors } from "@/lib/colors";
 
 function WireframeMesh() {
   const meshRef = useRef();
+  const colors = useMemo(() => getThemeColors(), []);
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
@@ -19,15 +21,28 @@ function WireframeMesh() {
   });
 
   return (
-    <mesh ref={meshRef}>
-      <icosahedronGeometry args={[1.8, 2]} />
-      <meshBasicMaterial
-        wireframe
-        color="#b0772d"
-        transparent
-        opacity={0.18}
-      />
-    </mesh>
+    <group ref={meshRef}>
+      {/* Outer wireframe sphere in slate-blue secondary */}
+      <mesh>
+        <icosahedronGeometry args={[1.8, 2]} />
+        <meshBasicMaterial
+          wireframe
+          color={colors.secondary}
+          transparent
+          opacity={0.32}
+        />
+      </mesh>
+      {/* Inner highlight sphere in primary gold */}
+      <mesh scale={0.75}>
+        <icosahedronGeometry args={[1.8, 1]} />
+        <meshBasicMaterial
+          wireframe
+          color={colors.primary}
+          transparent
+          opacity={0.16}
+        />
+      </mesh>
+    </group>
   );
 }
 

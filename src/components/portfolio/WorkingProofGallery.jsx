@@ -146,7 +146,7 @@ export default function WorkingProofGallery({ proofs = [] }) {
                   aria-label={`View proof: ${item.title}`}
                 >
                   {/* Browser-Style Top Frame */}
-                  <div className="bg-[#122230] px-4 py-3 border-b border-white/10 flex items-center justify-between">
+                  <div className="bg-[var(--color-navy-dark)] px-4 py-3 border-b border-white/10 flex items-center justify-between">
                     {/* Three window control dots */}
                     <div className="flex items-center gap-1.5" aria-hidden="true">
                       <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />

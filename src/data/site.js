@@ -97,7 +97,7 @@ export const siteConfig = {
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
-    { label: "Our Team", href: "/about#ceo" },
+    { label: "Our Team", href: "/team" },
     { label: "Reviews & Clients", href: "/reviews" },
     { label: "Our Work", href: "/portfolio" },
   ],
@@ -128,5 +128,27 @@ export const siteConfig = {
     { name: "Kinetix Bio", ticker: "KNTX" },
     { name: "Solstice Energy", ticker: "SLST" },
   ],
+  logo: {
+    full: {
+      src: "/logo.png",
+      width: 813,
+      height: 567,
+      alt: "GrowElite - Digital Innovation",
+    },
+    light: {
+      src: "/logo.png",
+      width: 813,
+      height: 567,
+      alt: "GrowElite - Digital Innovation",
+    },
+    mark: {
+      src: "/logo-mark.png",
+      width: 415,
+      height: 344,
+      alt: "GrowElite - Digital Innovation",
+    },
+  },
 };
+
+export const logo = siteConfig.logo;
 

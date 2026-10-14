@@ -166,7 +166,7 @@ export default function Navbar() {
         }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 bg-[#534a3a]/80 backdrop-blur-xl border-b border-[#c9a063]/20 overflow-visible",
+          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 bg-[var(--color-background)]/85 backdrop-blur-xl border-b border-[var(--color-border-secondary)] overflow-visible",
           isScrolled
             ? "shadow-xl shadow-black/20 py-3 sm:py-3.5"
             : "shadow-md py-4 sm:py-5"
@@ -201,7 +201,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#192e41]/90 p-1.5 rounded-full border border-black/15 backdrop-blur-md shadow-md">
+          <nav className="hidden md:flex items-center gap-1 bg-[var(--color-surface)]/90 p-1.5 rounded-full border border-[var(--color-border-secondary)] backdrop-blur-md shadow-md">
             {siteConfig.navLinks.map((link) => {
               const isActive = pathname === link.href;
               const isServices = link.href === "/services";
@@ -270,14 +270,14 @@ export default function Navbar() {
               href="/contact"
               variant="default"
               className={cn(
-                "text-xs uppercase tracking-wider font-semibold py-2.5 px-5 bg-[#192e41] hover:bg-[#122232] text-white border shadow-lg transition-all",
+                "text-xs uppercase tracking-wider font-semibold py-2.5 px-5 bg-[var(--color-surface)] hover:bg-[var(--color-surface-elevated)] text-white border shadow-lg transition-all",
                 pathname === "/contact"
-                  ? "border-[var(--color-primary)] text-[var(--color-primary-light)] ring-1 ring-[var(--color-primary)]/50 bg-[#122232]"
-                  : "border-black/20 hover:border-[var(--color-primary)]/50"
+                  ? "border-[var(--color-primary)] text-[var(--color-primary-light)] ring-1 ring-[var(--color-primary)]/50 bg-[var(--color-surface-elevated)]"
+                  : "border-[var(--color-border-secondary)] hover:border-[var(--color-primary)]/50"
               )}
             >
               Let&apos;s Start Project
-              <ArrowUpRight className="w-3.5 h-3.5 ml-1 text-[#c9a063]" />
+              <ArrowUpRight className="w-3.5 h-3.5 ml-1 text-[var(--color-primary-light)]" />
             </MagneticButton>
           </div>
 
@@ -299,7 +299,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex items-center justify-center w-11 h-11 rounded-full bg-[#192e41] text-white border border-black/20 shadow-md hover:scale-105 transition-all"
+              className="flex items-center justify-center w-11 h-11 rounded-full bg-[var(--color-surface)] text-white border border-[var(--color-border-secondary)] shadow-md hover:scale-105 transition-all"
               aria-label="Toggle menu"
               data-cursor="pointer"
             >

@@ -1,16 +1,17 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { logo as logoConfig } from "@/data/site";
 
 /**
  * GrowElite Logo component.
  *
- * Files expected in /public:
- *  - /logo-light.png  -> for dark backgrounds (default)
- *  - /logo.png        -> for light backgrounds (variant="dark" or "on-light")
- *  - /logo-mark.png   -> symbol only (markOnly)
+ * Files in /public:
+ *  - /logo.png      -> Full logo (symbol + GrowElite + tagline) for dark backgrounds
+ *  - /logo-mark.png -> Symbol only
  *
- * @param {boolean} [markOnly=false] - Render only the symbol
- * @param {number}  [width=160]      - Display width in px (height follows the real aspect ratio)
+ * @param {string}  [variant]        - Optional variant identifier ('full' | 'light' | 'mark')
+ * @param {boolean} [markOnly=false] - Render only the crest symbol
+ * @param {number}  [width=80]       - Display width in px (height follows the real aspect ratio)
  * @param {number}  [height]         - Optional explicit display height in px
  * @param {string}  [className]      - Extra classes
  * @param {boolean} [priority=false] - Preload (use in Navbar and Preloader)
@@ -26,15 +27,17 @@ export default function Logo({
   style,
   ...props
 }) {
-  const isLightBackground = variant === "dark" || variant === "on-light";
+  const isMark = markOnly || variant === "mark";
+  const config = isMark ? logoConfig.mark : logoConfig.full;
 
-  const src = markOnly
-    ? "/logo-mark.png"
-    : isLightBackground
-      ? "/logo.png"
-      : "/logo.png";
+  const src = config.src;
+  const naturalWidth = config.width;
+  const naturalHeight = config.height;
 
-  // Display size. If only width is given, height follows the image's real ratio.
+  // Intrinsic height based on actual aspect ratio if not explicitly passed
+  const calculatedHeight = height ?? Math.round(width * (naturalHeight / naturalWidth));
+
+  // Display size. If only width is given, height follows the image's real ratio with height: auto.
   const displayStyle = height
     ? { width, height }
     : { width, height: "auto" };
@@ -43,10 +46,8 @@ export default function Logo({
     <Image
       src={src}
       alt={alt}
-      // Intrinsic size hint only. Real ratio comes from the file itself
-      // because CSS height is "auto", so the logo is never stretched.
-      width={width}
-      height={height ?? width}
+      width={naturalWidth}
+      height={naturalHeight}
       quality={100}
       priority={priority}
       sizes={`${width}px`}

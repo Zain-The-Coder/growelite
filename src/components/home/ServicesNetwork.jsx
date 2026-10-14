@@ -385,9 +385,9 @@ export default function ServicesNetwork() {
                   ref={(el) => (pathElementsRef.current[node.index] = el)}
                   d={node.pathData}
                   fill="none"
-                  stroke="var(--color-primary)"
+                  stroke={isHovered ? "var(--color-primary)" : "var(--color-secondary)"}
                   strokeWidth={isHovered ? 2 : 1.15}
-                  strokeOpacity={isHovered ? 0.9 : 0.22}
+                  strokeOpacity={isHovered ? 0.95 : 0.38}
                   className="base-path transition-all duration-300"
                 />
 

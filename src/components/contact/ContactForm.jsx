@@ -510,11 +510,11 @@ function ContactFormInner() {
                 onChange={handleChange}
                 className="w-full px-4 py-3.5 rounded-xl bg-[var(--color-background)] border border-[var(--color-surface-border)] focus:border-[var(--color-primary)] text-white text-base sm:text-sm transition-all focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
               >
-                <option value="" className="bg-[#122230] text-white/50">
+                <option value="" className="bg-[var(--color-navy-darker)] text-white/50">
                   Select an estimated budget range...
                 </option>
                 {budgetOptions.map((opt) => (
-                  <option key={opt} value={opt} className="bg-[#122230] text-white">
+                  <option key={opt} value={opt} className="bg-[var(--color-navy-darker)] text-white">
                     {opt}
                   </option>
                 ))}

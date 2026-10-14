@@ -36,7 +36,7 @@ function ServiceBlockItem({ service, index, isLast }) {
               className="absolute -top-14 -left-4 sm:-left-8 text-7xl sm:text-9xl font-display font-black text-transparent select-none pointer-events-none -z-10 opacity-20"
               style={{
                 y: parallaxY,
-                WebkitTextStroke: "2px rgba(176, 119, 45, 0.4)",
+                WebkitTextStroke: "2px var(--color-border-primary)",
               }}
               aria-hidden="true"
             >
@@ -149,7 +149,7 @@ function ServiceBlockItem({ service, index, isLast }) {
               className="absolute -bottom-[1px] left-0 right-0 h-[1px] origin-left pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(176, 119, 45, 0.4) 0%, rgba(176, 119, 45, 0.15) 35%, transparent 100%)",
+                  "linear-gradient(90deg, var(--color-border-primary) 0%, color-mix(in srgb, var(--color-primary) 15%, transparent) 35%, transparent 100%)",
               }}
             />
           </div>

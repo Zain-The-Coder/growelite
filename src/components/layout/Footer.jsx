@@ -50,10 +50,9 @@ export default function Footer() {
             <div>
               <Link
                 href="/"
-                className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/95 hover:bg-white shadow-lg border border-white/40 mb-6 group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/20"
+                className="inline-flex items-center mb-6 group transition-all duration-300 hover:scale-105"
               >
                 <Logo
-                  variant="dark"
                   className="h-10 sm:h-12 w-auto transition-transform duration-300"
                 />
               </Link>
