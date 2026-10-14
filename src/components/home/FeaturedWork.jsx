@@ -55,7 +55,7 @@ export default function FeaturedWork() {
       {/* Top Header Row inside the pinned section */}
       <div className="pt-16 pb-8 px-6 md:px-16 w-full max-w-7xl mx-auto flex items-end justify-between">
         <div>
-          <div className="flex items-center gap-3 mb-3 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+          <div className="flex items-center gap-3 mb-3 text-xs uppercase tracking-[0.25em] text-primary font-semibold">
             <span className="w-8 h-[1px] bg-primary" />
             <span>SELECTED ARCHIVES 2024–2025</span>
           </div>
@@ -65,7 +65,7 @@ export default function FeaturedWork() {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-white/40">
+          <span className="text-xs uppercase tracking-widest text-white/40 font-medium">
             DRAG OR SCROLL HORIZONTALLY
           </span>
           <div className="w-2.5 h-2.5 rounded-full bg-primary animate-ping" />
@@ -96,7 +96,7 @@ export default function FeaturedWork() {
                 />
 
                 {/* Top card metadata */}
-                <div className="relative z-10 flex items-center justify-between font-mono text-xs text-white/80">
+                <div className="relative z-10 flex items-center justify-between text-xs text-white/80 font-medium">
                   <span className="uppercase tracking-widest px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
                     {project.client}
                   </span>
@@ -110,14 +110,14 @@ export default function FeaturedWork() {
                   <h3 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tighter text-white drop-shadow-lg group-hover:scale-105 transition-transform duration-500">
                     {project.title}
                   </h3>
-                  <p className="mt-2 text-xs sm:text-sm font-mono text-white/80 uppercase tracking-widest">
+                  <p className="mt-2 text-xs sm:text-sm text-white/80 uppercase tracking-widest font-semibold">
                     {project.category}
                   </p>
                 </div>
 
                 {/* Bottom card metric & arrow */}
                 <div className="relative z-10 flex items-center justify-between border-t border-white/20 pt-4">
-                  <span className="text-xs sm:text-sm font-mono font-bold text-white bg-black/50 px-3 py-1.5 rounded-lg border border-white/15">
+                  <span className="text-xs sm:text-sm font-bold text-white bg-black/50 px-3 py-1.5 rounded-lg border border-white/15">
                     {project.metrics}
                   </span>
                   <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
@@ -136,7 +136,7 @@ export default function FeaturedWork() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-1 rounded-md text-[11px] font-mono uppercase bg-white/5 text-white/60 border border-white/10"
+                      className="px-2.5 py-1 rounded-md text-[11px] uppercase bg-white/5 text-white/60 border border-white/10 font-medium"
                     >
                       {tag}
                     </span>

@@ -120,7 +120,7 @@ export default function AboutTeaser() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-16 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+        <div className="flex items-center gap-3 mb-16 text-xs uppercase tracking-[0.25em] text-primary font-semibold">
           <span className="w-8 h-[1px] bg-primary" />
           <span>MANIFESTO & PHILOSOPHY</span>
         </div>
@@ -143,13 +143,13 @@ export default function AboutTeaser() {
               <MagneticButton
                 href="/about"
                 variant="outline"
-                className="py-3 px-6 text-xs uppercase font-mono tracking-widest border-white/20 hover:border-primary text-white hover:text-primary-light"
+                className="py-3 px-6 text-xs uppercase tracking-widest font-semibold border-white/20 hover:border-primary text-white hover:text-primary-light"
               >
                 Our Complete Story
                 <ArrowUpRight className="w-4 h-4 ml-1 text-primary" />
               </MagneticButton>
 
-              <div className="flex items-center gap-3 text-white/50 font-mono text-xs uppercase">
+              <div className="flex items-center gap-3 text-white/50 text-xs uppercase font-medium tracking-wide">
                 <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
                 <span>Zero Templates • 100% Bespoke Code</span>
               </div>

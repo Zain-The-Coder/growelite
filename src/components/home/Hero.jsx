@@ -121,7 +121,7 @@ export default function Hero() {
 
       {/* Bottom bar with Scroll Indicator */}
       <div className="relative z-10 max-w-7xl mx-auto w-full flex items-center justify-between border-t border-white/10 pt-6">
-        <div className="flex items-center gap-6 font-mono text-xs uppercase tracking-widest text-white/40">
+        <div className="flex items-center gap-6 text-xs uppercase tracking-widest text-white/40 font-semibold">
           <span>AWARDS: 48+ SOTD</span>
           <span className="hidden sm:inline">•</span>
           <span className="hidden sm:inline">GLOBAL CLIENTS</span>
@@ -130,7 +130,7 @@ export default function Hero() {
         <button
           type="button"
           onClick={scrollToExplore}
-          className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-white/60 hover:text-white transition-colors group cursor-pointer"
+          className="flex items-center gap-3 text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors group cursor-pointer font-semibold"
           data-cursor="pointer"
         >
           <span>SCROLL TO EXPLORE</span>

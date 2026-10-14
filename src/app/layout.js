@@ -51,8 +51,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${poppins.variable} dark`}
       style={{
-        "--font-display": "var(--font-poppins), 'Poppins', sans-serif",
-        "--font-sans": "var(--font-poppins), 'Poppins', sans-serif",
+        "--font-display": "var(--font-poppins), 'Poppins', system-ui, sans-serif",
+        "--font-sans": "var(--font-poppins), 'Poppins', system-ui, sans-serif",
+        "--font-mono": "var(--font-poppins), 'Poppins', system-ui, sans-serif",
       }}
     >
       <body className="min-h-screen bg-background text-white antialiased selection:bg-primary selection:text-white flex flex-col justify-between overflow-x-hidden font-sans">

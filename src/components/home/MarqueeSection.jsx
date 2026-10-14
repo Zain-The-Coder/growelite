@@ -21,7 +21,7 @@ export default function MarqueeSection() {
           <Marquee
             speed={38}
             direction="right"
-            className="text-xs md:text-sm font-mono uppercase tracking-[0.2em]"
+            className="text-xs md:text-sm uppercase tracking-[0.2em] font-semibold"
             itemClassName="text-white/40 hover:text-white transition-colors"
           >
             {siteConfig.clients.map((client) => (

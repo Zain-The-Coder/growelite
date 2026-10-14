@@ -37,7 +37,7 @@ export default function Stats() {
                 <h4 className="font-display text-lg font-bold uppercase text-white/90 mb-2">
                   {stat.label}
                 </h4>
-                <p className="text-xs font-mono text-white/50 leading-relaxed">
+                <p className="text-xs font-medium text-white/50 leading-relaxed">
                   {stat.sublabel}
                 </p>
               </div>

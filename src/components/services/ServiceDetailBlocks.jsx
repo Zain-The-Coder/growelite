@@ -6,7 +6,7 @@ import { Check, ArrowUpRight, Sparkles } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import ServiceVisual from "@/components/services/ServiceVisuals";
 
-function ServiceBlockItem({ service, index }) {
+function ServiceBlockItem({ service, index, isLast }) {
   const blockRef = useRef(null);
   const isEven = index % 2 === 0;
 
@@ -21,7 +21,7 @@ function ServiceBlockItem({ service, index }) {
     <article
       id={service.slug}
       ref={blockRef}
-      className="scroll-mt-28 sm:scroll-mt-36 py-20 sm:py-28 relative border-t border-white/10 overflow-hidden"
+      className="scroll-mt-28 sm:scroll-mt-36 py-16 md:py-24 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div
@@ -44,7 +44,7 @@ function ServiceBlockItem({ service, index }) {
             </motion.div>
 
             {/* Category Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 font-mono text-[11px] uppercase tracking-widest text-primary-light">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 text-[11px] uppercase tracking-widest text-primary-light font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               <span>{service.category}</span>
               <span className="text-white/30">•</span>
@@ -63,7 +63,7 @@ function ServiceBlockItem({ service, index }) {
 
             {/* What's Included List */}
             <div className="mb-8">
-              <h3 className="font-mono text-xs uppercase tracking-widest text-white/50 mb-4 flex items-center gap-2">
+              <h3 className="text-xs uppercase tracking-widest text-white/50 mb-4 flex items-center gap-2 font-semibold">
                 <Sparkles className="w-3.5 h-3.5 text-primary" />
                 <span>What&apos;s Included:</span>
               </h3>
@@ -88,14 +88,14 @@ function ServiceBlockItem({ service, index }) {
 
             {/* Tools & Tech Chips */}
             <div className="mb-8">
-              <h4 className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-3">
+              <h4 className="text-[11px] uppercase tracking-widest text-white/40 mb-3 font-medium">
                 Tools &amp; Technologies:
               </h4>
               <div className="flex flex-wrap gap-2">
                 {service.tools.map((tool) => (
                   <span
                     key={tool}
-                    className="px-3 py-1 rounded-full text-xs font-mono bg-surface-elevated/70 border border-white/10 hover:border-primary/40 text-white/80 transition-colors"
+                    className="px-3 py-1 rounded-full text-xs font-medium bg-surface-elevated/70 border border-white/10 hover:border-primary/40 text-white/80 transition-colors"
                   >
                     {tool}
                   </span>
@@ -105,7 +105,7 @@ function ServiceBlockItem({ service, index }) {
 
             {/* Expected Outcome Highlight Card */}
             <div className="p-4 rounded-xl bg-gradient-to-r from-primary/15 via-primary/5 to-transparent border-l-4 border-primary border-y border-r border-white/5 mb-8">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-primary-light font-bold mb-1">
+              <div className="text-[10px] uppercase tracking-widest text-primary-light font-bold mb-1">
                 EXPECTED IMPACT &amp; OUTCOME
               </div>
               <p className="text-xs sm:text-sm text-white font-medium">
@@ -136,6 +136,25 @@ function ServiceBlockItem({ service, index }) {
           </div>
         </div>
       </div>
+
+      {/* Bottom border between services with animated gold gradient accent line */}
+      {!isLast && (
+        <div className="absolute bottom-0 inset-x-0 px-6 md:px-12 pointer-events-none">
+          <div className="max-w-7xl mx-auto relative border-b border-[var(--color-surface-border)]">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -bottom-[1px] left-0 right-0 h-[1px] origin-left pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(176, 119, 45, 0.4) 0%, rgba(176, 119, 45, 0.15) 35%, transparent 100%)",
+              }}
+            />
+          </div>
+        </div>
+      )}
     </article>
   );
 }
@@ -156,13 +175,14 @@ export default function ServiceDetailBlocks({ services = [] }) {
         const isFirstOfCategory =
           index === 0 || services[index - 1]?.category !== service.category;
         const anchorId = categoryAnchors[service.category];
+        const isLast = index === services.length - 1;
 
         return (
           <div key={service.slug}>
             {isFirstOfCategory && anchorId && (
               <div id={anchorId} className="scroll-mt-28" />
             )}
-            <ServiceBlockItem service={service} index={index} />
+            <ServiceBlockItem service={service} index={index} isLast={isLast} />
           </div>
         );
       })}

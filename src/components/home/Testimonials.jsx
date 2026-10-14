@@ -26,7 +26,7 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
           <div>
-            <div className="flex items-center gap-3 mb-3 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+            <div className="flex items-center gap-3 mb-3 text-xs uppercase tracking-[0.25em] text-primary font-semibold">
               <span className="w-8 h-[1px] bg-primary" />
               <span>ENDORSEMENTS & IMPACT</span>
             </div>
@@ -88,7 +88,7 @@ export default function Testimonials() {
                     />
                   ))}
                 </div>
-                <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-primary/10 border border-primary/30 text-primary-light">
+                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 border border-primary/30 text-primary-light">
                   {current.impact}
                 </span>
               </div>
@@ -101,7 +101,7 @@ export default function Testimonials() {
               {/* Author Info */}
               <div className="flex items-center gap-4 border-t border-white/10 pt-6">
                 <div
-                  className={`w-12 h-12 rounded-full bg-gradient-to-tr ${current.avatarColor} flex items-center justify-center text-white font-mono font-bold text-sm shadow-lg`}
+                  className={`w-12 h-12 rounded-full bg-gradient-to-tr ${current.avatarColor} flex items-center justify-center text-white font-bold text-sm shadow-lg`}
                 >
                   {current.initials}
                 </div>
@@ -109,7 +109,7 @@ export default function Testimonials() {
                   <h4 className="font-display font-bold text-base sm:text-lg text-white uppercase">
                     {current.author}
                   </h4>
-                  <p className="font-mono text-xs text-white/50">
+                  <p className="text-xs text-white/50 font-medium">
                     {current.role} • <span className="text-white/80">{current.company}</span>
                   </p>
                 </div>

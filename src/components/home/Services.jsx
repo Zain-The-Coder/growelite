@@ -48,7 +48,7 @@ function ServiceCard({ service, index, isActive, onToggle }) {
       <div className="relative z-10">
         {/* Top header row */}
         <div className="flex items-center justify-between mb-6">
-          <span className="font-mono text-2xl font-black text-white/30 group-hover:text-primary transition-colors tabular-nums">
+          <span className="text-2xl font-black text-white/30 group-hover:text-primary transition-colors tabular-nums">
             {service.number}
           </span>
           <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 group-hover:text-primary-light group-hover:border-primary/40 transition-colors">
@@ -65,7 +65,7 @@ function ServiceCard({ service, index, isActive, onToggle }) {
         <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white mb-2 group-hover:text-white transition-colors">
           {service.title}
         </h3>
-        <p className="text-sm font-mono text-primary-light mb-4 uppercase tracking-wider">
+        <p className="text-sm font-semibold text-primary-light mb-4 uppercase tracking-wider">
           {service.subtitle}
         </p>
 
@@ -79,7 +79,7 @@ function ServiceCard({ service, index, isActive, onToggle }) {
           {service.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 rounded-full text-xs font-mono uppercase bg-white/5 border border-white/10 text-white/60"
+              className="px-3 py-1 rounded-full text-xs uppercase bg-white/5 border border-white/10 text-white/60 font-medium"
             >
               {tag}
             </span>
@@ -96,14 +96,14 @@ function ServiceCard({ service, index, isActive, onToggle }) {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden border-t border-white/10 pt-4 mt-4"
             >
-              <span className="text-xs font-mono uppercase tracking-widest text-white/40 block mb-3">
+              <span className="text-xs uppercase tracking-widest text-white/40 block mb-3 font-semibold">
                 KEY DELIVERABLES:
               </span>
               <div className="grid grid-cols-2 gap-2">
                 {service.deliverables.map((item) => (
                   <div
                     key={item}
-                    className="flex items-center gap-2 text-xs font-mono text-white/80"
+                    className="flex items-center gap-2 text-xs text-white/80 font-medium"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
                     <span>{item}</span>
@@ -130,7 +130,7 @@ export default function Services() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
           <div>
-            <div className="flex items-center gap-3 mb-4 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+            <div className="flex items-center gap-3 mb-4 text-xs uppercase tracking-[0.25em] text-primary font-semibold">
               <span className="w-8 h-[1px] bg-primary" />
               <span>CAPABILITIES & ARCHITECTURE</span>
             </div>

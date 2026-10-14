@@ -319,7 +319,7 @@ export default function Navbar() {
                   className="h-[44px] sm:h-[50px] w-auto"
                 />
               </Link>
-              <span className="text-xs font-mono uppercase tracking-[0.25em] text-primary">
+              <span className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">
                 NAVIGATION
               </span>
 

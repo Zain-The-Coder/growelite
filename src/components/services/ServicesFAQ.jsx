@@ -13,11 +13,11 @@ export default function ServicesFAQ() {
   };
 
   return (
-    <section className="py-28 px-6 md:px-12 relative z-10 bg-boxes border-t border-white/10">
+    <section className="py-28 px-6 md:px-12 relative z-10 bg-boxes border-t border-[var(--color-surface-border)]">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-white/10 mb-4 font-mono text-xs uppercase tracking-[0.2em] text-primary">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-[var(--color-surface-border)] mb-4 text-xs uppercase tracking-[0.2em] text-primary font-semibold">
             <HelpCircle className="w-3.5 h-3.5" />
             <span>CLARITY &amp; TRANSPARENCY</span>
           </div>
@@ -40,7 +40,7 @@ export default function ServicesFAQ() {
                 className={`rounded-2xl transition-all duration-300 overflow-hidden border ${
                   isOpen
                     ? "bg-surface-elevated/90 border-primary shadow-lg shadow-primary/10"
-                    : "bg-surface/70 border-white/10 hover:border-white/20"
+                    : "bg-surface/70 border-[var(--color-surface-border)] hover:border-white/20"
                 }`}
               >
                 <button
@@ -59,7 +59,7 @@ export default function ServicesFAQ() {
                     className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
                       isOpen
                         ? "bg-primary text-black border-primary rotate-45"
-                        : "bg-white/5 border-white/10 text-white/60"
+                        : "bg-white/5 border-[var(--color-surface-border)] text-white/60"
                     }`}
                   >
                     <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -76,7 +76,7 @@ export default function ServicesFAQ() {
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 sm:px-7 sm:pb-7 text-xs sm:text-sm font-light leading-relaxed text-white/70 border-t border-white/5 pt-4">
+                      <div className="px-6 pb-6 sm:px-7 sm:pb-7 text-xs sm:text-sm font-light leading-relaxed text-white/70 border-t border-[var(--color-surface-border)] pt-4">
                         {faq.answer}
                       </div>
                     </motion.div>

@@ -36,8 +36,9 @@
   --color-text-muted: rgba(255, 255, 255, 0.52);
 
   /* Fonts (set by next/font in layout.js) */
-  --font-display: "Poppins", system-ui, -apple-system, sans-serif;
-  --font-sans: "Poppins", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  --font-mono: var(--font-poppins), "Poppins", system-ui, sans-serif;
 }
 
 :root {
@@ -143,6 +144,10 @@ html.lenis body {
 
 .font-sans {
   font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-sans) !important;
 }
 
 /* Gold gradient text.

@@ -41,7 +41,7 @@ export default function Process() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-24">
-          <div className="inline-flex items-center gap-3 mb-4 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+          <div className="inline-flex items-center gap-3 mb-4 text-xs uppercase tracking-[0.25em] text-primary font-semibold">
             <span className="w-6 h-[1px] bg-primary" />
             <span>OPERATIONAL RIGOR</span>
             <span className="w-6 h-[1px] bg-primary" />
@@ -98,7 +98,7 @@ export default function Process() {
                   >
                     <div className="p-8 rounded-2xl bg-surface/70 border border-white/10 hover:border-primary/40 transition-all duration-300 group">
                       <div
-                        className={`flex items-center gap-4 mb-3 font-mono text-xs uppercase tracking-widest ${
+                        className={`flex items-center gap-4 mb-3 text-xs uppercase tracking-widest font-semibold ${
                           isEven ? "justify-start" : "justify-start md:justify-end"
                         }`}
                       >
@@ -123,7 +123,7 @@ export default function Process() {
                         {step.deliverables.map((item) => (
                           <span
                             key={item}
-                            className="px-2.5 py-1 rounded-md text-[11px] font-mono uppercase bg-white/5 border border-white/10 text-white/60"
+                            className="px-2.5 py-1 rounded-md text-[11px] uppercase bg-white/5 border border-white/10 text-white/60 font-medium"
                           >
                             {item}
                           </span>

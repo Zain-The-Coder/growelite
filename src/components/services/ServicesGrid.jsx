@@ -141,10 +141,10 @@ function ServiceCard({ service, index }) {
         {/* Top Header: Number & Category & Arrow */}
         <div className="relative z-10 flex items-start justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-bold text-gold-small tracking-widest px-2.5 py-1 rounded-md bg-white/5 border border-white/10">
+            <span className="text-xs font-bold text-gold-small tracking-widest px-2.5 py-1 rounded-md bg-white/5 border border-white/10">
               {service.number}
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-wider text-white/40">
+            <span className="text-[11px] uppercase tracking-wider text-white/40 font-medium">
               {service.category}
             </span>
           </div>
@@ -169,8 +169,8 @@ function ServiceCard({ service, index }) {
           </p>
         </div>
 
-        {/* Bottom: Jump indicator */}
-        <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono uppercase tracking-wider text-white/40 group-hover:text-white/80 transition-colors">
+        {/* Bottom: Jump indicator with surface border */}
+        <div className="relative z-10 pt-4 border-t border-[var(--color-surface-border)] flex items-center justify-between text-xs font-medium uppercase tracking-wider text-white/40 group-hover:text-white/80 transition-colors">
           <span>Explore Details</span>
           <span className="text-primary font-bold">→</span>
         </div>
@@ -181,12 +181,12 @@ function ServiceCard({ service, index }) {
 
 export default function ServicesGrid({ services = [] }) {
   return (
-    <section id="services-grid" className="py-20 px-6 md:px-12 relative z-10">
+    <section id="services-grid" className="py-20 px-6 md:px-12 relative z-10 border-b border-[var(--color-surface-border)]">
       <div className="max-w-7xl mx-auto">
         {/* Section title & count */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-primary mb-2">
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-2">
               <span className="w-4 h-[1px] bg-primary" />
               <span>CAPABILITIES OVERVIEW</span>
             </div>
@@ -194,7 +194,7 @@ export default function ServicesGrid({ services = [] }) {
               Complete Service Index
             </h2>
           </div>
-          <p className="text-white/50 text-xs font-mono uppercase tracking-widest">
+          <p className="text-white/50 text-xs uppercase tracking-widest font-medium">
             Showing {services.length} Specialized Capabilities
           </p>
         </div>

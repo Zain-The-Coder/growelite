@@ -206,7 +206,7 @@ export default function ChatShowcase() {
           {/* Top Label Pill */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/80 border border-primary/30 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-primary-light font-semibold">
+            <span className="text-xs uppercase tracking-[0.2em] text-primary-light font-semibold">
               {chatDemoData.label}
             </span>
           </div>
@@ -223,7 +223,7 @@ export default function ChatShowcase() {
 
           {/* Channel Badge */}
           <div className="pt-2 flex items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-wider text-white/70">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs uppercase tracking-wider text-white/70 font-medium">
               <Sparkles className="w-3 h-3 text-primary" />
               {chatDemoData.channelsBadge}
             </span>
@@ -234,7 +234,7 @@ export default function ChatShowcase() {
         <div className="relative max-w-2xl mx-auto">
           {/* Floating Side Chips (Hidden on small screens, shown on desktop) */}
           <div className="hidden lg:flex flex-col gap-4 absolute -left-52 top-16 z-20 pointer-events-none">
-            <div className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-white/80 animate-float">
+            <div className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-white/80 animate-float">
               <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
               <span>Answers calls 24/7</span>
             </div>
@@ -242,14 +242,14 @@ export default function ChatShowcase() {
 
           <div className="hidden lg:flex flex-col gap-4 absolute -right-56 top-24 z-20 pointer-events-none">
             <div
-              className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-white/80 animate-float"
+              className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-white/80 animate-float"
               style={{ animationDelay: "1.2s" }}
             >
               <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_var(--color-primary)]" />
               <span>Books appointments automatically</span>
             </div>
             <div
-              className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-white/80 animate-float self-end"
+              className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-white/80 animate-float self-end"
               style={{ animationDelay: "2.4s" }}
             >
               <span className="w-2 h-2 rounded-full bg-primary-light shadow-[0_0_8px_var(--color-primary-light)]" />
@@ -279,7 +279,7 @@ export default function ChatShowcase() {
                   <h3 className="text-sm font-semibold text-white tracking-wide flex items-center gap-2">
                     {chatDemoData.header.name}
                   </h3>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-emerald-400/90">
+                  <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-emerald-400/90">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span>{chatDemoData.header.status}</span>
                     <span className="text-white/40">• Instant Voice & Text</span>
@@ -323,7 +323,7 @@ export default function ChatShowcase() {
                     }`}
                   >
                     {/* Role Tag */}
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1 px-1">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-white/40 mb-1 px-1">
                       {isAI ? "Ava • AI Agent" : "You"}
                     </span>
 
@@ -377,7 +377,7 @@ export default function ChatShowcase() {
                           </div>
 
                           {/* Duration Tag */}
-                          <span className="text-[11px] font-mono text-primary-light tracking-wider flex-shrink-0">
+                          <span className="text-[11px] font-medium text-primary-light tracking-wider flex-shrink-0">
                             {msg.duration}
                           </span>
                         </div>
@@ -398,7 +398,7 @@ export default function ChatShowcase() {
               {/* AI Typing Indicator: 3 vertical waveform bars */}
               {isTyping && (
                 <div className="flex flex-col items-start animate-in fade-in">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1 px-1">
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-white/40 mb-1 px-1">
                     Ava is speaking...
                   </span>
                   <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-white/[0.06] border border-white/10 flex items-center gap-1.5 h-10">
@@ -414,7 +414,7 @@ export default function ChatShowcase() {
             {isCallActive && (
               <div className="absolute inset-0 z-30 bg-navy-darker/95 backdrop-blur-2xl flex flex-col items-center justify-between p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-300">
                 {/* Top Call Status */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono uppercase tracking-widest">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs uppercase tracking-widest font-semibold">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   <span>VOICE CALL CONNECTED</span>
                 </div>
@@ -441,7 +441,7 @@ export default function ChatShowcase() {
                   <h4 className="mt-4 text-base sm:text-lg font-bold text-white tracking-wide">
                     {chatDemoData.callOverlay.name}
                   </h4>
-                  <span className="text-xs font-mono text-primary-light mt-0.5">
+                  <span className="text-xs font-medium text-primary-light mt-0.5">
                     00:0{callTimer}
                   </span>
 
@@ -491,7 +491,7 @@ export default function ChatShowcase() {
               <button
                 type="button"
                 onClick={resetDemo}
-                className="px-3.5 py-2.5 rounded-xl bg-primary hover:bg-primary-light text-navy-darker font-semibold text-xs font-mono uppercase tracking-wider transition-all cursor-pointer"
+                className="px-3.5 py-2.5 rounded-xl bg-primary hover:bg-primary-light text-navy-darker font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer"
                 data-cursor="pointer"
               >
                 Reset

@@ -21,6 +21,9 @@ export default function MagneticButton({
 
   const handleMouseMove = (e) => {
     if (!buttonRef.current) return;
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse), (hover: none)").matches) {
+      return;
+    }
     const { clientX, clientY } = e;
     const { left, top, width, height } = buttonRef.current.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
@@ -37,7 +40,7 @@ export default function MagneticButton({
   };
 
   const baseStyles =
-    "relative inline-flex items-center justify-center rounded-full font-medium transition-colors select-none group overflow-hidden";
+    "relative inline-flex items-center justify-center rounded-full font-medium transition-colors select-none group overflow-hidden box-border";
 
   const variantStyles = {
     default:
@@ -51,6 +54,8 @@ export default function MagneticButton({
     nav:
       "text-sm tracking-wide text-white/70 hover:text-white px-4 py-2 hover:bg-white/10 hover:text-primary-light transition-all duration-200",
   };
+
+  const isFullWidth = className.includes("w-full");
 
   const buttonContent = (
     <motion.div
@@ -66,7 +71,7 @@ export default function MagneticButton({
       <motion.span
         animate={{ x: position.x * textStrength, y: position.y * textStrength }}
         transition={{ type: "spring", stiffness: 200, damping: 18, mass: 0.15 }}
-        className="relative z-10 flex items-center gap-2 pointer-events-none"
+        className="relative z-10 flex flex-wrap items-center justify-center gap-2 pointer-events-none text-center max-w-full"
       >
         {children}
       </motion.span>
@@ -77,14 +82,28 @@ export default function MagneticButton({
 
   if (href) {
     return (
-      <Link href={href} onClick={onClick} className="inline-block">
+      <Link
+        href={href}
+        onClick={onClick}
+        className={cn(
+          "inline-flex justify-center",
+          isFullWidth ? "w-full max-w-[360px]" : "inline-block"
+        )}
+      >
         {buttonContent}
       </Link>
     );
   }
 
   return (
-    <button type="button" onClick={onClick} className="inline-block bg-transparent p-0 border-0">
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "inline-flex justify-center bg-transparent p-0 border-0",
+        isFullWidth ? "w-full max-w-[360px]" : "inline-block"
+      )}
+    >
       {buttonContent}
     </button>
   );
