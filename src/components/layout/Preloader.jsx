@@ -1,21 +1,62 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SITE_NAME } from "@/data/site";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { preloaderTagline } from "@/data/site";
 import Logo from "@/components/ui/Logo";
+
+const LINE1_WORDS = [
+  {
+    chars: [
+      { char: "W", index: 0 },
+      { char: "e", index: 1 },
+      { char: "l", index: 2 },
+      { char: "c", index: 3, flicker: "neon-flicker-a" },
+      { char: "o", index: 4 },
+      { char: "m", index: 5 },
+      { char: "e", index: 6 },
+    ],
+  },
+  {
+    chars: [
+      { char: "t", index: 7 },
+      { char: "o", index: 8 },
+    ],
+  },
+  {
+    chars: [
+      { char: "G", index: 9, flicker: "neon-flicker-b" },
+      { char: "r", index: 10 },
+      { char: "o", index: 11 },
+      { char: "w", index: 12 },
+      { char: "E", index: 13 },
+      { char: "l", index: 14 },
+      { char: "i", index: 15, flicker: "neon-flicker-c" },
+      { char: "t", index: 16 },
+      { char: "e", index: 17 },
+    ],
+  },
+];
 
 export default function Preloader() {
   const [progress, setProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [removeDOM, setRemoveDOM] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(() => {
+    if (typeof window !== "undefined") {
+      return Boolean(sessionStorage.getItem("has_seen_preloader"));
+    }
+    return false;
+  });
+  const [removeDOM, setRemoveDOM] = useState(() => {
+    if (typeof window !== "undefined") {
+      return Boolean(sessionStorage.getItem("has_seen_preloader"));
+    }
+    return false;
+  });
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Check if session has already seen preloader
-    const hasLoadedBefore = sessionStorage.getItem("has_seen_preloader");
-    if (hasLoadedBefore) {
-      setIsLoaded(true);
-      setRemoveDOM(true);
+    if (sessionStorage.getItem("has_seen_preloader")) {
       return;
     }
 
@@ -24,6 +65,9 @@ export default function Preloader() {
 
     let current = 0;
     const interval = setInterval(() => {
+      if (typeof window !== "undefined" && window.__PAUSE_PRELOADER) {
+        return;
+      }
       // Non-linear realistic loader increments
       const jump = Math.floor(Math.random() * 12) + 4;
       current += jump;
@@ -61,103 +105,200 @@ export default function Preloader() {
     <AnimatePresence>
       {!isLoaded && (
         <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col justify-between overflow-hidden select-none">
-          {/* Top Curtain Panel */}
+          {/* Top Curtain Panel (Navy Brand Background) */}
           <motion.div
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute inset-0 bg-background flex flex-col justify-between p-8 sm:p-16 z-10 pointer-events-auto"
+            className="absolute inset-0 bg-background flex flex-col items-center justify-center p-5 sm:p-10 z-10 pointer-events-auto overflow-hidden"
           >
-            {/* Top row */}
-            <div className="flex items-center justify-between text-xs sm:text-sm tracking-widest uppercase text-white/50 font-mono">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
-                INIT SYSTEM
-              </span>
-              <span>CREATIVE TECH LAB</span>
-            </div>
-
-            {/* Center Animated Logo Reveal */}
-            <div className="flex flex-col items-center justify-center text-center my-auto relative">
-              {/* Luminous aura behind logo */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: [0.15, 0.35, 0.2], scale: [0.8, 1.2, 1] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute w-80 h-80 rounded-full bg-gradient-to-tr from-primary/20 via-primary-light/25 to-primary/10 blur-3xl pointer-events-none"
-              />
-
-              {/* 1. Symbol draws in & scales with spring/glow */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.4, rotate: -12, filter: "blur(8px)" }}
-                animate={{ opacity: 1, scale: 1, rotate: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-                className="mb-5 relative"
-              >
-                <div className="p-4 sm:p-5 rounded-3xl bg-white/95 shadow-2xl shadow-primary/30 border border-white/40 inline-flex items-center justify-center">
-                  <Logo
-                    markOnly
-                    width={90}
-                    height={90}
-                    priority
-                    className="w-16 h-16 sm:w-20 sm:h-20"
+            {/* SVG Displacement Filters for Electric Crackle Edge */}
+            <svg
+              className="absolute w-0 h-0 pointer-events-none opacity-0 overflow-hidden"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <defs>
+                {/* Desktop: Scale 3.2, 2 octaves */}
+                <filter
+                  id="neon-electric-desktop"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                  colorInterpolationFilters="sRGB"
+                >
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.045 0.08"
+                    numOctaves="2"
+                    result="noise"
+                    seed="1"
+                  >
+                    <animate
+                      attributeName="seed"
+                      values="1;4;8;2;9;5;12;3;7;1"
+                      dur="1.2s"
+                      repeatCount="indefinite"
+                      calcMode="discrete"
+                    />
+                    <animate
+                      attributeName="baseFrequency"
+                      values="0.04 0.075; 0.048 0.09; 0.042 0.08; 0.04 0.075"
+                      dur="2.4s"
+                      repeatCount="indefinite"
+                    />
+                  </feTurbulence>
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="noise"
+                    scale="3.2"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
                   />
-                </div>
+                </filter>
+
+                {/* Mobile: Scale 2, 1 octave for smooth 60fps */}
+                <filter
+                  id="neon-electric-mobile"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                  colorInterpolationFilters="sRGB"
+                >
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.045 0.08"
+                    numOctaves="1"
+                    result="noise"
+                    seed="1"
+                  >
+                    <animate
+                      attributeName="seed"
+                      values="1;5;2;7;3;6;1"
+                      dur="1.5s"
+                      repeatCount="indefinite"
+                      calcMode="discrete"
+                    />
+                  </feTurbulence>
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="noise"
+                    scale="2"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                  />
+                </filter>
+              </defs>
+            </svg>
+
+            {/* Content Container (Fades out when load completes) */}
+            <motion.div
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
+              className="flex flex-col items-center justify-center text-center max-w-4xl w-full mx-auto px-5 select-none"
+            >
+              {/* 1. Logo: fades and scales in first with soft glow */}
+              <motion.div
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.88 }
+                }
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                className="mb-6 sm:mb-8 flex items-center justify-center relative"
+              >
+                {/* Soft ambient glow behind logo */}
+                <div
+                  className="absolute w-36 h-36 sm:w-48 sm:h-48 rounded-full pointer-events-none blur-2xl opacity-40 -z-10"
+                  style={{
+                    background:
+                      "radial-gradient(circle, var(--color-neon) 0%, transparent 70%)",
+                  }}
+                  aria-hidden="true"
+                />
+                <Logo
+                  priority
+                  width={220}
+                  alt="GrowElite"
+                  className="w-[160px] md:w-[220px] h-auto object-contain max-w-full drop-shadow-[0_0_24px_rgba(178,128,33,0.35)]"
+                  style={{
+                    width: "clamp(160px, 45vw, 220px)",
+                    height: "auto",
+                  }}
+                />
               </motion.div>
 
-              {/* 2. Wordmark slides up through overflow mask */}
-              <div className="overflow-hidden py-1">
-                <motion.div
-                  initial={{ y: "120%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center justify-center"
+              {/* 2. Neon Text block with breathing pulse */}
+              <div className="neon-breathing-sign flex flex-col items-center justify-center text-center w-full">
+                {/* Line 1: "Welcome to GrowElite" */}
+                <h1 className="neon-tube-line1 text-[clamp(1.75rem,6.5vw,4.5rem)] leading-[1.15] text-center max-w-full">
+                  {LINE1_WORDS.map((wordObj, wIdx) => (
+                    <span key={wIdx} className="inline-block whitespace-nowrap">
+                      {wordObj.chars.map((charObj, cIdx) => {
+                        const delay = 0.14 + charObj.index * 0.018;
+                        return (
+                          <span
+                            key={cIdx}
+                            className="inline-block neon-letter-item"
+                            style={{ animationDelay: `${delay}s` }}
+                          >
+                            <span className={charObj.flicker || undefined}>
+                              {charObj.char}
+                            </span>
+                          </span>
+                        );
+                      })}
+                      {wIdx < LINE1_WORDS.length - 1 && (
+                        <span className="inline-block w-[0.28em]">&nbsp;</span>
+                      )}
+                    </span>
+                  ))}
+                </h1>
+
+                {/* Line 2: "Digital Marketing & Tech Agency" */}
+                <motion.h2
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: 6 }
+                  }
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.54,
+                    duration: 0.32,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="neon-tube-line2 mt-2 sm:mt-3 text-[clamp(0.8rem,2.6vw,1.5rem)] leading-snug text-center max-w-full"
                 >
-                  <div className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl bg-white/95 shadow-2xl shadow-black/40 border border-white/40 inline-flex items-center justify-center">
-                    <Logo
-                      variant="dark"
-                      priority
-                      className="h-11 sm:h-13 md:h-15 w-auto"
-                    />
-                  </div>
-                </motion.div>
+                  <span className="inline-block">Digital Marketing</span>{" "}
+                  <span className="inline-block">&amp; Tech Agency</span>
+                </motion.h2>
               </div>
 
-              {/* 3. Tagline expands */}
+              {/* 3. Simple White Tagline */}
               <motion.p
-                initial={{ opacity: 0, letterSpacing: "0.15em", y: 10 }}
-                animate={{ opacity: 1, letterSpacing: "0.3em", y: 0 }}
-                transition={{ delay: 0.55, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-4 text-[10px] sm:text-xs uppercase text-white/60 font-mono tracking-[0.3em]"
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 8 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.74,
+                  duration: 0.32,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="mt-6 sm:mt-8 font-sans font-normal text-[var(--text-primary)] text-[clamp(0.85rem,2.4vw,1.25rem)] tracking-normal text-center max-w-lg mx-auto leading-relaxed"
               >
-                DIGITAL INNOVATION &bull; ENGINEERING EXCELLENCE
+                {preloaderTagline}
               </motion.p>
-            </div>
-
-            {/* Bottom Progress Bar & Counter */}
-            <div className="flex flex-col gap-4">
-              <div className="flex items-end justify-between font-mono">
-                <span className="text-xs uppercase tracking-wider text-white/40">
-                  BUILDING SHADERS & SCENARIO
-                </span>
-                <span className="text-3xl sm:text-5xl font-bold tabular-nums text-white">
-                  {progress}
-                  <span className="text-lg text-primary ml-1">%</span>
-                </span>
-              </div>
-
-              {/* Progress bar line */}
-              <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-primary to-primary-light"
-                  style={{ width: `${progress}%` }}
-                  transition={{ ease: "easeOut", duration: 0.1 }}
-                />
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Secondary curtain reveal accent layer */}
+          {/* Secondary curtain reveal accent layer (brand primary color) */}
           <motion.div
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}

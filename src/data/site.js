@@ -1,9 +1,11 @@
 export const SITE_NAME = "GrowElite";
+export const preloaderTagline = "We claim, you get revenue in 3 to 4 months.";
 
 export const siteConfig = {
   name: SITE_NAME,
   legalName: `${SITE_NAME} Digital Innovation Inc.`,
   tagline: "Digital Innovation",
+  preloaderTagline,
   description:
     "We are a next-generation creative marketing and technical agency merging bespoke aesthetic direction with high-performance digital engineering to scale ambitious global brands.",
   url: "https://growelite.digital",

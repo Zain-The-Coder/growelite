@@ -11,6 +11,7 @@
   /* Brand base (the only hardcoded colors in the project) */
   --color-primary: #b0772d;
   --color-background: #192e41;
+  --color-neon: #b28021;
 
   /* Gold shades */
   --color-primary-light: color-mix(in srgb, var(--color-primary) 78%, white);
@@ -42,6 +43,8 @@
 }
 
 :root {
+  --color-neon: #b28021;
+
   /* Semantic aliases used across components */
   --bg-primary: var(--color-background);
   --bg-surface: var(--color-surface);
@@ -248,6 +251,166 @@ html.lenis body {
   z-index: 0;
 }
 
+/* ---------- Neon Preloader effects ---------- */
+.neon-breathing-sign {
+  animation: neonBreathing 3.6s ease-in-out infinite;
+}
+
+@keyframes neonBreathing {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px color-mix(in srgb, var(--color-neon) 25%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px color-mix(in srgb, var(--color-neon) 65%, transparent));
+  }
+}
+
+.neon-tube-line1 {
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px var(--color-neon);
+  paint-order: stroke fill;
+  filter: url(#neon-electric-mobile);
+}
+
+.neon-tube-line2 {
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-neon);
+  paint-order: stroke fill;
+  filter:
+    url(#neon-electric-mobile)
+    drop-shadow(0 0 1px var(--color-neon))
+    drop-shadow(0 0 4px var(--color-neon))
+    drop-shadow(0 0 12px color-mix(in srgb, var(--color-neon) 55%, transparent));
+}
+
+@media (min-width: 768px) {
+  .neon-tube-line1 {
+    filter: url(#neon-electric-desktop);
+  }
+  .neon-tube-line2 {
+    -webkit-text-stroke: 2px var(--color-neon);
+    filter:
+      url(#neon-electric-desktop)
+      drop-shadow(0 0 1px var(--color-neon))
+      drop-shadow(0 0 5px var(--color-neon))
+      drop-shadow(0 0 14px color-mix(in srgb, var(--color-neon) 65%, transparent))
+      drop-shadow(0 0 28px color-mix(in srgb, var(--color-neon) 30%, transparent));
+  }
+}
+
+/* Staggered entrance: stroke first (0-25%), then glow ramps up */
+@keyframes neonLetterIgniteMobile {
+  0% {
+    opacity: 0;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  25% {
+    opacity: 1;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  55% {
+    opacity: 1;
+    filter: drop-shadow(0 0 2px var(--color-neon));
+  }
+  100% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 1px var(--color-neon))
+      drop-shadow(0 0 4px var(--color-neon))
+      drop-shadow(0 0 12px color-mix(in srgb, var(--color-neon) 60%, transparent));
+  }
+}
+
+@keyframes neonLetterIgniteDesktop {
+  0% {
+    opacity: 0;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  20% {
+    opacity: 1;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 3px var(--color-neon));
+  }
+  100% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 1px var(--color-neon))
+      drop-shadow(0 0 5px var(--color-neon))
+      drop-shadow(0 0 14px color-mix(in srgb, var(--color-neon) 70%, transparent))
+      drop-shadow(0 0 28px color-mix(in srgb, var(--color-neon) 38%, transparent))
+      drop-shadow(0 0 55px color-mix(in srgb, var(--color-neon) 16%, transparent));
+  }
+}
+
+.neon-letter-item {
+  animation: neonLetterIgniteMobile 0.32s ease-out both;
+}
+
+@media (min-width: 768px) {
+  .neon-letter-item {
+    animation-name: neonLetterIgniteDesktop;
+  }
+}
+
+/* Letter flicker keyframes (irregular opacity dips) */
+@keyframes neonFlickerA {
+  0%, 100% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.55; }
+  43% { opacity: 0.95; }
+  45% { opacity: 0.38; }
+  47% { opacity: 1; }
+  76% { opacity: 1; }
+  77% { opacity: 0.65; }
+  78% { opacity: 1; }
+}
+
+@keyframes neonFlickerB {
+  0%, 100% { opacity: 1; }
+  22% { opacity: 1; }
+  23% { opacity: 0.6; }
+  24% { opacity: 1; }
+  61% { opacity: 1; }
+  62% { opacity: 0.45; }
+  63% { opacity: 0.9; }
+  64% { opacity: 0.3; }
+  65% { opacity: 1; }
+}
+
+@keyframes neonFlickerC {
+  0%, 100% { opacity: 1; }
+  52% { opacity: 1; }
+  53% { opacity: 0.5; }
+  54% { opacity: 0.95; }
+  55% { opacity: 1; }
+  85% { opacity: 1; }
+  86% { opacity: 0.65; }
+  87% { opacity: 1; }
+}
+
+.neon-flicker-a {
+  animation: neonFlickerA 3.8s infinite ease-in-out 0.8s;
+}
+
+.neon-flicker-b {
+  animation: neonFlickerB 4.6s infinite ease-in-out 1.2s;
+}
+
+.neon-flicker-c {
+  animation: neonFlickerC 3.1s infinite ease-in-out 0.5s;
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -257,5 +420,27 @@ html.lenis body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .neon-breathing-sign {
+    animation: none !important;
+  }
+  .neon-tube-line1,
+  .neon-tube-line2 {
+    filter: none !important;
+  }
+  .neon-letter-item {
+    animation: none !important;
+    opacity: 1 !important;
+    filter:
+      drop-shadow(0 0 1px var(--color-neon))
+      drop-shadow(0 0 5px var(--color-neon))
+      drop-shadow(0 0 12px color-mix(in srgb, var(--color-neon) 60%, transparent)) !important;
+  }
+  .neon-flicker-a,
+  .neon-flicker-b,
+  .neon-flicker-c {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
