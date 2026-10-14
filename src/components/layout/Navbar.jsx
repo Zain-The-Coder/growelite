@@ -269,23 +269,43 @@ export default function Navbar() {
             <MagneticButton
               href="/contact"
               variant="default"
-              className="text-xs uppercase tracking-wider font-semibold py-2.5 px-5 bg-[#192e41] hover:bg-[#122232] text-white border border-black/20 shadow-lg"
+              className={cn(
+                "text-xs uppercase tracking-wider font-semibold py-2.5 px-5 bg-[#192e41] hover:bg-[#122232] text-white border shadow-lg transition-all",
+                pathname === "/contact"
+                  ? "border-[var(--color-primary)] text-[var(--color-primary-light)] ring-1 ring-[var(--color-primary)]/50 bg-[#122232]"
+                  : "border-black/20 hover:border-[var(--color-primary)]/50"
+              )}
             >
               Let&apos;s Start Project
               <ArrowUpRight className="w-3.5 h-3.5 ml-1 text-[#c9a063]" />
             </MagneticButton>
           </div>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-[#192e41] text-white border border-black/20 shadow-md hover:scale-105 transition-all"
-            aria-label="Toggle menu"
-            data-cursor="pointer"
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Right Controls: Compact pill on 380px+ & Hamburger */}
+          <div className="md:hidden flex items-center gap-2.5">
+            <Link
+              href="/contact"
+              className={cn(
+                "hidden min-[380px]:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider transition-all",
+                pathname === "/contact"
+                  ? "bg-[var(--color-primary)] text-black font-bold shadow-[0_0_15px_var(--color-primary-glow)]"
+                  : "bg-[var(--color-primary)]/20 text-[var(--color-primary-light)] border border-[var(--color-primary)]/40 hover:bg-[var(--color-primary)]/30"
+              )}
+            >
+              <span>Start project</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex items-center justify-center w-11 h-11 rounded-full bg-[#192e41] text-white border border-black/20 shadow-md hover:scale-105 transition-all"
+              aria-label="Toggle menu"
+              data-cursor="pointer"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </motion.header>
 
@@ -489,6 +509,32 @@ export default function Navbar() {
                 );
               })}
             </div>
+
+            {/* Full-width gold button in mobile drawer */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.1 + siteConfig.navLinks.length * 0.08,
+                duration: 0.45,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="pt-2 pb-4"
+            >
+              <Link
+                href="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={cn(
+                  "w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-widest transition-all shadow-lg",
+                  pathname === "/contact"
+                    ? "bg-[var(--color-primary)] text-black font-bold ring-2 ring-white/20"
+                    : "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] text-black hover:opacity-95"
+                )}
+              >
+                <span>Let&apos;s start project</span>
+                <ArrowUpRight className="w-4 h-4 text-black" />
+              </Link>
+            </motion.div>
 
             {/* Bottom info in mobile drawer */}
             <motion.div

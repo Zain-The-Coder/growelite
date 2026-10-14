@@ -1,58 +1,44 @@
-import Link from "next/link";
-import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
-import { siteConfig } from "@/data/site";
+import ContactHero from "@/components/contact/ContactHero";
+import ContactInfo from "@/components/contact/ContactInfo";
+import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata = {
-  title: "Contact – AGENCYNAME",
-  description: "Initiate a project inquiry or schedule a private consultation.",
+  title: "Contact | GrowElite — Digital Marketing & Tech Agency",
+  description:
+    "Get in touch with GrowElite to initiate your next web engineering, mobile app, AI agent, or performance marketing campaign. Reach out directly or send us an inquiry.",
+  openGraph: {
+    title: "Contact | GrowElite — Digital Marketing & Tech Agency",
+    description:
+      "Start your project with GrowElite. Get in touch for custom digital marketing campaigns, full-stack web and mobile development, and growth architecture.",
+  },
 };
 
 export default function ContactPage() {
   return (
-    <main className="min-h-[85vh] flex flex-col items-center justify-center px-6 text-center pt-32 pb-20">
-      <div className="max-w-xl mx-auto space-y-8">
-        <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#ff3366]">
-          INITIATE ENGAGEMENT
-        </span>
-        <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">
-          Contact &ndash; Coming Soon
-        </h1>
-        <p className="text-white/60 text-sm sm:text-base font-light">
-          Our interactive inquiry portal and scheduling matrix are coming online soon. In the meantime, connect with us directly:
-        </p>
+    <main className="relative w-full overflow-hidden bg-[var(--color-background)]">
+      {/* 1. Hero Section */}
+      <ContactHero />
 
-        {/* Direct Contact Cards */}
-        <div className="flex flex-col gap-3 font-mono text-xs text-white/80 text-left bg-white/[0.03] p-6 rounded-2xl border border-white/10">
-          <a
-            href={`mailto:${siteConfig.email}`}
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors"
-          >
-            <Mail className="w-4 h-4 text-[#ff3366]" />
-            <span>{siteConfig.email}</span>
-          </a>
-          <a
-            href={`tel:${siteConfig.phone}`}
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors"
-          >
-            <Phone className="w-4 h-4 text-[#00f0ff]" />
-            <span>{siteConfig.phone}</span>
-          </a>
-          <div className="flex items-center gap-3 p-2 text-white/50">
-            <MapPin className="w-4 h-4 text-emerald-400" />
-            <span>{siteConfig.address}</span>
+      {/* 2. Main Two-Column Contact Section */}
+      <section
+        id="inquiry"
+        className="section-dark border-b border-[var(--color-surface-border)] py-16 sm:py-24 px-5 sm:px-8 md:px-12 relative"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left Column: Direct Info & Process Steps */}
+            <div className="lg:col-span-5 order-2 lg:order-1">
+              <ContactInfo />
+            </div>
+
+            {/* Right Column: Interactive Form */}
+            <div className="lg:col-span-7 order-1 lg:order-2">
+              <ContactForm />
+            </div>
           </div>
         </div>
-
-        <div className="pt-2">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/50 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Home
-          </Link>
-        </div>
-      </div>
+      </section>
+      {/* NOTE: No bottom CTA section per specification — form is the CTA and page ends directly into Footer */}
     </main>
   );
 }

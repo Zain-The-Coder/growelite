@@ -1,34 +1,56 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import fs from "fs";
+import path from "path";
+import PortfolioHero from "@/components/portfolio/PortfolioHero";
+import BudgetManagement from "@/components/portfolio/BudgetManagement";
+import IndustryExperience from "@/components/portfolio/IndustryExperience";
+import WorkingProofGallery from "@/components/portfolio/WorkingProofGallery";
+import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
+import { proofs } from "@/data/proofs";
 
 export const metadata = {
-  title: "Portfolio – AGENCYNAME",
-  description: "Browse our complete catalog of award-winning digital experiences.",
+  title: "Our Work | GrowElite — Digital Marketing & Tech Agency",
+  description:
+    "Explore working proof from the ad accounts we run: real budgets, performance screenshots, and multi-channel marketing across diverse industries.",
+  openGraph: {
+    title: "Our Work | GrowElite — Digital Marketing & Tech Agency",
+    description:
+      "Proof, not promises. Real ad accounts, real budgets, real results. Explore our telemetry screenshots and industry experience.",
+    url: "https://growelite.digital/portfolio",
+    siteName: "GrowElite",
+    type: "website",
+  },
 };
 
 export default function PortfolioPage() {
+  // Server-side check: Only render proofs whose image file exists in public/proofs or public/proof
+  const publicDir = path.join(process.cwd(), "public");
+  const availableProofs = proofs.filter((p) => {
+    if (!p.image) return false;
+    const relativePath = p.image.startsWith("/") ? p.image.slice(1) : p.image;
+    const diskPath = path.join(publicDir, relativePath);
+    const altDiskPath = path.join(
+      publicDir,
+      relativePath.replace(/^proofs\//, "proof/")
+    );
+    return fs.existsSync(diskPath) || fs.existsSync(altDiskPath);
+  });
+
   return (
-    <main className="min-h-[80vh] flex flex-col items-center justify-center px-6 text-center pt-32 pb-20">
-      <div className="max-w-xl mx-auto space-y-6">
-        <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#00f0ff]">
-          WORK REPOSITORY
-        </span>
-        <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">
-          Portfolio &ndash; Coming Soon
-        </h1>
-        <p className="text-white/60 text-sm sm:text-base font-light">
-          Our complete multi-category case study directory and interactive WebGL showcases are currently being compiled.
-        </p>
-        <div className="pt-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/50 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Home
-          </Link>
-        </div>
-      </div>
+    <main className="relative w-full overflow-hidden bg-[var(--color-background)]">
+      {/* 1. Hero Section */}
+      <PortfolioHero />
+
+      {/* 2. Budget Management Section */}
+      <BudgetManagement />
+
+      {/* 3. Industry Experience Section */}
+      <IndustryExperience />
+
+      {/* 4. Working Proof Gallery */}
+      <WorkingProofGallery proofs={availableProofs} />
+
+      {/* 5. Final CTA */}
+      <PortfolioCTA />
     </main>
   );
 }

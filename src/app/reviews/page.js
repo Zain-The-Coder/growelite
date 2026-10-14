@@ -1,34 +1,36 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import ReviewsHero from "@/components/reviews/ReviewsHero";
+import ReviewSliders from "@/components/reviews/ReviewSliders";
+import OurClients from "@/components/reviews/OurClients";
+import ReviewsCTA from "@/components/reviews/ReviewsCTA";
 
 export const metadata = {
-  title: "Reviews – AGENCYNAME",
-  description: "Read in-depth client testimonials and verification reports.",
+  title: "Reviews & Clients | GrowElite — Digital Marketing & Tech Agency",
+  description:
+    "Explore real client reviews, verified performance results, and the growing roster of global brands scaled by GrowElite.",
+  openGraph: {
+    title: "Reviews & Clients | GrowElite — Digital Marketing & Tech Agency",
+    description:
+      "Real campaigns, real budgets, real results. Read testimonials from founders and explore the brands that grew with GrowElite.",
+    url: "https://growelite.digital/reviews",
+    siteName: "GrowElite",
+    type: "website",
+  },
 };
 
 export default function ReviewsPage() {
   return (
-    <main className="min-h-[80vh] flex flex-col items-center justify-center px-6 text-center pt-32 pb-20">
-      <div className="max-w-xl mx-auto space-y-6">
-        <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#ff3366]">
-          VERIFIED IMPACT
-        </span>
-        <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">
-          Reviews &ndash; Coming Soon
-        </h1>
-        <p className="text-white/60 text-sm sm:text-base font-light">
-          We are curating a complete directory of client video case studies and verified growth metrics.
-        </p>
-        <div className="pt-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/50 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Home
-          </Link>
-        </div>
-      </div>
+    <main className="relative w-full overflow-hidden bg-[var(--color-background)]">
+      {/* 1. Hero Section */}
+      <ReviewsHero />
+
+      {/* 2. Client Reviews (Horizontal Sliders) */}
+      <ReviewSliders />
+
+      {/* 3. Our Clients (Marquee & Responsive Grid) */}
+      <OurClients />
+
+      {/* 4. Final CTA */}
+      <ReviewsCTA />
     </main>
   );
 }
