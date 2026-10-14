@@ -1,95 +1,8 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-
-function ParticleField() {
-  const pointsRef = useRef();
-
-  // Generate 1200 lightweight particles in a spherical/toroidal constellation
-  const [positions, colors] = useMemo(() => {
-    const count = 1200;
-    const pos = new Float32Array(count * 3);
-    const col = new Float32Array(count * 3);
-
-    const color1 = new THREE.Color("#b0772d");
-    const color2 = new THREE.Color("#c98d3b");
-    const color3 = new THREE.Color("#e0aa62");
-
-    for (let i = 0; i < count; i++) {
-      // Concentrated spatial distribution
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(Math.random() * 2 - 1);
-      const radius = 2.4 + (Math.random() - 0.5) * 1.6;
-
-      const x = radius * Math.sin(phi) * Math.cos(theta);
-      const y = radius * Math.sin(phi) * Math.sin(theta);
-      const z = radius * Math.cos(phi);
-
-      pos[i * 3] = x;
-      pos[i * 3 + 1] = y;
-      pos[i * 3 + 2] = z;
-
-      // Smooth color gradient mix
-      const mixRatio = Math.random();
-      const mixedColor = mixRatio < 0.5
-        ? color1.clone().lerp(color2, mixRatio * 2)
-        : color2.clone().lerp(color3, (mixRatio - 0.5) * 2);
-
-      col[i * 3] = mixedColor.r;
-      col[i * 3 + 1] = mixedColor.g;
-      col[i * 3 + 2] = mixedColor.b;
-    }
-
-    return [pos, col];
-  }, []);
-
-  useFrame((state, delta) => {
-    if (!pointsRef.current) return;
-    // Gentle continuous cosmic drift
-    pointsRef.current.rotation.y += delta * 0.08;
-    pointsRef.current.rotation.x += delta * 0.04;
-
-    // React softly to mouse cursor position
-    const mouseX = state.pointer.x * 0.35;
-    const mouseY = state.pointer.y * 0.35;
-
-    pointsRef.current.rotation.y = THREE.MathUtils.lerp(
-      pointsRef.current.rotation.y,
-      pointsRef.current.rotation.y + mouseX * 0.05,
-      0.08
-    );
-    pointsRef.current.rotation.x = THREE.MathUtils.lerp(
-      pointsRef.current.rotation.x,
-      mouseY * 0.3,
-      0.08
-    );
-  });
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-        <bufferAttribute
-          attach="attributes-color"
-          args={[colors, 3]}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.035}
-        vertexColors
-        transparent
-        opacity={0.8}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </points>
-  );
-}
 
 function WireframeMesh() {
   const meshRef = useRef();
@@ -118,7 +31,7 @@ function WireframeMesh() {
   );
 }
 
-export default function HeroCanvas({ isPaused = false, eventSource }) {
+export default function HeroCanvas({ isPaused = false, eventSource, showParticles = false }) {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
       <Canvas
@@ -129,7 +42,6 @@ export default function HeroCanvas({ isPaused = false, eventSource }) {
         frameloop={isPaused ? "never" : "always"}
       >
         <ambientLight intensity={0.5} />
-        <ParticleField />
         <WireframeMesh />
       </Canvas>
     </div>

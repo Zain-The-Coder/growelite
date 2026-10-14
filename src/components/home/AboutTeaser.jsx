@@ -108,13 +108,13 @@ export default function AboutTeaser() {
       ref={containerRef}
       className="relative py-32 px-6 md:px-12 bg-background overflow-hidden"
     >
-      {/* 3D Wireframe & Particle Sphere Animation (anchored to right half, fills empty area next to text) */}
+      {/* 3D Wireframe Sphere Animation (anchored to right half, fills empty area next to text) */}
       {isNearViewport && (
         <div
           className="absolute top-1/2 -translate-y-1/2 right-[-10%] sm:right-[-6%] lg:right-[-4%] w-[85%] sm:w-[70%] lg:w-[52%] aspect-square max-w-[850px] pointer-events-none z-0 opacity-25 lg:opacity-100 transition-opacity duration-700"
           aria-hidden="true"
         >
-          <HeroCanvas isPaused={!isInView} eventSource={containerRef} />
+          <HeroCanvas isPaused={!isInView} eventSource={containerRef} showParticles={false} />
         </div>
       )}
 

@@ -62,9 +62,8 @@ export default function ServicesHero() {
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-primary)]/30 mb-8 shadow-lg shadow-black/20"
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full  mb-8 shadow-lg shadow-black/20"
         >
-          <Sparkles className="w-3.5 h-3.5 text-primary" />
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-gold-small font-semibold">
             OUR SERVICES
           </span>
@@ -73,7 +72,7 @@ export default function ServicesHero() {
         {/* Giant split-text headline */}
         <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white max-w-4xl leading-[1.05] mb-8">
           <SplitText type="words" stagger={0.045} duration={0.8}>
-            Everything your brand needs to grow. One team.
+            Everything your brand needs to grow ! One team
           </SplitText>
         </h1>
 
@@ -110,33 +109,6 @@ export default function ServicesHero() {
           >
             See our work
           </MagneticButton>
-        </motion.div>
-
-        {/* Category Quick-Jump Chips */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3"
-        >
-          <span className="text-[11px] font-mono uppercase tracking-widest text-white/40 mr-1 hidden sm:inline-block">
-            Quick Jump:
-          </span>
-          {quickCategories.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <button
-                key={cat.label}
-                type="button"
-                onClick={() => scrollToCategory(cat.target)}
-                className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/80 border border-white/10 hover:border-primary/50 text-white/70 hover:text-white transition-all duration-300 text-xs font-mono tracking-wider cursor-pointer shadow-sm hover:shadow-md hover:shadow-primary/10"
-                data-cursor="pointer"
-              >
-                <Icon className="w-3.5 h-3.5 text-primary group-hover:scale-110 transition-transform" />
-                <span>{cat.label}</span>
-              </button>
-            );
-          })}
         </motion.div>
       </div>
     </section>

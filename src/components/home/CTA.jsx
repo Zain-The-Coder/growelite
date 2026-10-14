@@ -42,8 +42,7 @@ export default function CTA() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 border border-primary/30 mb-8 text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-primary-light max-w-full text-center flex-wrap"
+          className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full mb-8 text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-primary-light max-w-full text-center flex-wrap"
         >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
           <span className="break-words">CURRENT SPRINT CAPACITY: OPEN</span>
@@ -59,7 +58,7 @@ export default function CTA() {
         >
           LET&apos;S BUILD SOMETHING{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light inline-block">
-            MONUMENTAL.
+            MONUMENTAL
           </span>
         </h2>
 

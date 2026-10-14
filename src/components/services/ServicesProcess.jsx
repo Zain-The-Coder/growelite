@@ -103,7 +103,6 @@ export default function ServicesProcess() {
                         }`}
                       >
                         <span className="text-primary font-bold">{step.phase}</span>
-                        <span className="text-white/30">•</span>
                         <span className="text-white/40">PHASE {step.step}</span>
                       </div>
 

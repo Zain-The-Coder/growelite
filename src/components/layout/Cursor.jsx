@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 
 export default function Cursor() {
   const [cursorState, setCursorState] = useState({
@@ -11,14 +11,9 @@ export default function Cursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
 
-  // Raw mouse coordinates
+  // Raw mouse coordinates (direct 1:1 cursor tracking with zero trailing lag)
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
-
-  // Smooth spring physics for follower ring
-  const springConfig = { damping: 24, stiffness: 260, mass: 0.5 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
     // Detect touch / coarse pointer devices
@@ -47,8 +42,19 @@ export default function Cursor() {
     // Global listener for interactive elements
     const handleMouseOver = (e) => {
       const target = e.target;
-      const customCursorEl = target.closest("[data-cursor]");
 
+      // Text inputs, textareas, selects, or editable fields:
+      // Hide custom dot so the system text selection / I-beam cursor is 100% unobstructed
+      if (
+        target.closest(
+          'input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]), textarea, select, [contenteditable="true"]'
+        )
+      ) {
+        setCursorState({ type: "hidden", text: "" });
+        return;
+      }
+
+      const customCursorEl = target.closest("[data-cursor]");
       if (customCursorEl) {
         const cursorAttr = customCursorEl.getAttribute("data-cursor");
         if (cursorAttr === "view") {
@@ -70,7 +76,9 @@ export default function Cursor() {
         target.closest("a") ||
         target.closest("button") ||
         target.closest('input[type="submit"]') ||
-        target.closest('[role="button"]')
+        target.closest('input[type="button"]') ||
+        target.closest('[role="button"]') ||
+        target.closest(".cursor-pointer")
       ) {
         setCursorState({ type: "pointer", text: "" });
       } else {
@@ -95,56 +103,47 @@ export default function Cursor() {
 
   const isView = cursorState.type === "view";
   const isPointer = cursorState.type === "pointer";
+  const isHidden = cursorState.type === "hidden";
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
-      {/* Central exact dot */}
+      {/* Small gold dot cursor with direct 1:1 mouse tracking and hover scaling */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-primary -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none flex items-center justify-center select-none"
         style={{
           x: mouseX,
           y: mouseY,
-          opacity: isVisible && !isView ? 1 : 0,
-        }}
-        transition={{ duration: 0.1 }}
-      />
-
-      {/* Outer Follower Ring / Badge */}
-      <motion.div
-        className="fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full text-[10px] font-bold tracking-widest text-white backdrop-blur-md"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          opacity: isVisible ? 1 : 0,
         }}
         animate={{
-          width: isView ? 76 : isPointer ? 48 : 32,
-          height: isView ? 76 : isPointer ? 48 : 32,
+          width: isView ? 68 : isPointer ? 22 : 8,
+          height: isView ? 68 : isPointer ? 22 : 8,
           backgroundColor: isView
-            ? "rgba(176, 119, 45, 0.9)"
+            ? "rgba(176, 119, 45, 0.95)"
             : isPointer
-            ? "rgba(176, 119, 45, 0.15)"
-            : "rgba(255, 255, 255, 0.04)",
+            ? "rgba(176, 119, 45, 0.3)"
+            : "#b0772d",
           borderColor: isView
-            ? "rgba(255, 255, 255, 0.5)"
+            ? "rgba(255, 255, 255, 0.6)"
             : isPointer
-            ? "rgba(176, 119, 45, 0.6)"
-            : "rgba(255, 255, 255, 0.25)",
-          borderWidth: isView ? "1px" : "1px",
-          scale: isVisible ? 1 : 0,
+            ? "rgba(176, 119, 45, 0.85)"
+            : "transparent",
+          borderWidth: isView ? "1px" : isPointer ? "1.5px" : "0px",
+          opacity: isVisible && !isHidden ? 1 : 0,
+          scale: isVisible && !isHidden ? 1 : 0,
         }}
         transition={{
           type: "spring",
-          stiffness: 350,
-          damping: 25,
+          stiffness: 450,
+          damping: 30,
+          mass: 0.2,
         }}
       >
-        {isView && (
+        {isView && cursorState.text && (
           <motion.span
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
-            className="tracking-widest uppercase font-mono text-[11px]"
+            className="tracking-widest uppercase font-mono text-[10px] font-bold text-white text-center leading-none"
           >
             {cursorState.text}
           </motion.span>
