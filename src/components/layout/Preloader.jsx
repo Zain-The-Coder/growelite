@@ -40,23 +40,16 @@ const LINE1_WORDS = [
 
 export default function Preloader() {
   const [progress, setProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(() => {
-    if (typeof window !== "undefined") {
-      return Boolean(sessionStorage.getItem("has_seen_preloader"));
-    }
-    return false;
-  });
-  const [removeDOM, setRemoveDOM] = useState(() => {
-    if (typeof window !== "undefined") {
-      return Boolean(sessionStorage.getItem("has_seen_preloader"));
-    }
-    return false;
-  });
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [removeDOM, setRemoveDOM] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Check if session has already seen preloader
-    if (sessionStorage.getItem("has_seen_preloader")) {
+    const hasLoadedBefore = sessionStorage.getItem("has_seen_preloader");
+    if (hasLoadedBefore) {
+      setIsLoaded(true);
+      setRemoveDOM(true);
       return;
     }
 
@@ -65,9 +58,6 @@ export default function Preloader() {
 
     let current = 0;
     const interval = setInterval(() => {
-      if (typeof window !== "undefined" && window.__PAUSE_PRELOADER) {
-        return;
-      }
       // Non-linear realistic loader increments
       const jump = Math.floor(Math.random() * 12) + 4;
       current += jump;
@@ -93,8 +83,19 @@ export default function Preloader() {
       }
     }, 45);
 
+    // Guaranteed fallback timeout so preloader can never hang or freeze
+    const safetyTimeout = setTimeout(() => {
+      clearInterval(interval);
+      setIsLoaded(true);
+      document.body.style.overflow = "";
+      sessionStorage.setItem("has_seen_preloader", "true");
+      window.dispatchEvent(new CustomEvent("preloaderComplete"));
+      setTimeout(() => setRemoveDOM(true), 1200);
+    }, 1800);
+
     return () => {
       clearInterval(interval);
+      clearTimeout(safetyTimeout);
       document.body.style.overflow = "";
     };
   }, []);
@@ -104,9 +105,13 @@ export default function Preloader() {
   return (
     <AnimatePresence>
       {!isLoaded && (
-        <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col justify-between overflow-hidden select-none">
+        <div
+          key="preloader-root"
+          className="fixed inset-0 z-[10000] pointer-events-none flex flex-col justify-between overflow-hidden select-none"
+        >
           {/* Top Curtain Panel (Navy Brand Background) */}
           <motion.div
+            key="curtain-panel"
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
@@ -300,6 +305,7 @@ export default function Preloader() {
 
           {/* Secondary curtain reveal accent layer (brand primary color) */}
           <motion.div
+            key="curtain-accent"
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
