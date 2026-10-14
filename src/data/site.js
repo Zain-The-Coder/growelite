@@ -11,6 +11,7 @@ export const siteConfig = {
   phone: "+1 (888) 492-7483",
   address: "740 Broadway, 11th Floor, New York, NY 10003",
   navLinks: [
+    { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
     { label: "Our Team", href: "/team" },
