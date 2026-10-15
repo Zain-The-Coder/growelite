@@ -9,7 +9,7 @@ import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function Footer() {
   const [timeNYC, setTimeNYC] = useState("");
-  const [year, setYear] = useState("2025");
+  const [year, setYear] = useState("2026");
 
   useEffect(() => {
     setYear(new Date().getFullYear().toString());
@@ -46,7 +46,7 @@ export default function Footer() {
         {/* Top summary row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-20 border-b border-white/10">
           {/* Col 1: Agency mission & live time */}
-          <div className="md:col-span-5 flex flex-col justify-between space-y-6">
+          <div className="md:col-span-7 lg:col-span-8 flex flex-col justify-between space-y-6">
             <div>
               <Link
                 href="/"
@@ -62,7 +62,7 @@ export default function Footer() {
                   Accepting Select Projects for Q3/Q4
                 </span>
               </div>
-              <p className="text-lg sm:text-xl text-white/70 font-light max-w-md leading-relaxed">
+              <p className="text-lg sm:text-xl text-white/70 font-light max-w-lg leading-relaxed">
                 We partner with bold founders and visionary executives to engineer award-winning brands and high-throughput digital software.
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
 
           {/* Col 2: Navigation Links */}
-          <div className="md:col-span-3 flex flex-col space-y-3 font-mono text-sm">
+          <div className="md:col-span-5 lg:col-span-4 flex flex-col space-y-3 font-mono text-sm">
             <span className="text-xs uppercase tracking-widest text-primary mb-2 font-bold">
               DIRECTORY
             </span>
@@ -94,27 +94,6 @@ export default function Footer() {
                 <span>{link.label}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
               </Link>
-            ))}
-          </div>
-
-          {/* Col 3: Social and Inquiries */}
-          <div className="md:col-span-4 flex flex-col space-y-3 font-mono text-sm">
-            <span className="text-xs uppercase tracking-widest text-primary mb-2 font-bold">
-              COMMUNITY & SIGNALS
-            </span>
-            {siteConfig.socials.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-white/70 hover:text-white transition-colors flex items-center justify-between group py-1"
-              >
-                <span>{social.label}</span>
-                <span className="text-xs text-white/40 group-hover:text-primary-light transition-colors">
-                  {social.handle}
-                </span>
-              </a>
             ))}
           </div>
         </div>
