@@ -1,9 +1,12 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Cursor from "@/components/layout/Cursor";
-import SiteChrome from "@/components/layout/SiteChrome";
+import Preloader from "@/components/layout/Preloader";
+import PageTransition from "@/components/layout/PageTransition";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -63,11 +66,14 @@ export default function RootLayout({ children }) {
         <div className="noise-overlay" />
 
         {/* Global Experiences */}
+        <Preloader />
         <Cursor />
 
         {/* Smooth scroll container synchronized with GSAP ScrollTrigger */}
         <SmoothScroll>
-          <SiteChrome>{children}</SiteChrome>
+          <Navbar />
+          <PageTransition>{children}</PageTransition>
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

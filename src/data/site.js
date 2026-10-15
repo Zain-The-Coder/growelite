@@ -98,8 +98,8 @@ export const siteConfig = {
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
     { label: "Our Team", href: "/team" },
-    { label: "Reviews & Clients", href: "/reviews" },
     { label: "Our Work", href: "/portfolio" },
+    { label: "Reviews", href: "/reviews" },
   ],
   socials: [
     { label: "X / Twitter", href: "https://twitter.com", handle: "@growelite" },

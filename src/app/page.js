@@ -5,11 +5,9 @@ import ChatShowcase from "@/components/home/ChatShowcase";
 import MeetFounder from "@/components/home/MeetFounder";
 import Testimonials from "@/components/home/Testimonials";
 import CTA from "@/components/home/CTA";
-import { getReviews } from "@/lib/getReviews";
+import { reviews } from "@/data/reviews";
 
-export default async function Home() {
-  const { reviews } = await getReviews({ limit: 12 });
-
+export default function Home() {
   return (
     <div className="relative w-full overflow-hidden">
       <Hero />
@@ -17,7 +15,7 @@ export default async function Home() {
       <Stats />
       <ChatShowcase />
       <MeetFounder />
-      {reviews && reviews.length > 0 && <Testimonials reviews={reviews} />}
+      <Testimonials reviews={reviews} />
       <CTA />
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Sparkles, ShieldCheck, Layers, ArrowDown } from "lucide-react";
+import { Sparkles, Layers, ArrowDown, Wallet } from "lucide-react";
 import SplitText from "@/components/ui/SplitText";
 
 export default function PortfolioHero() {
@@ -52,7 +52,7 @@ export default function PortfolioHero() {
         {/* Giant Split-Text Headline */}
         <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[1.08] tracking-tight text-white mb-6">
           <SplitText type="words" delay={0.15} stagger={0.035}>
-            Proof, not promises
+            Work that drives scale
           </SplitText>
         </h1>
 
@@ -63,7 +63,7 @@ export default function PortfolioHero() {
           transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className="text-white/70 max-w-2xl text-base sm:text-lg md:text-xl font-light leading-relaxed mb-10"
         >
-          Real ad accounts, real budgets, real results. Here is the work behind our claims.
+          Real ad accounts, disciplined budgets, compounding results. Explore the systems behind our growth execution.
         </motion.p>
 
         {/* Quick Links */}
@@ -75,12 +75,12 @@ export default function PortfolioHero() {
         >
           <button
             type="button"
-            onClick={() => scrollToSection("proof")}
+            onClick={() => scrollToSection("budget")}
             className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[var(--color-surface)] border border-[var(--color-surface-border)] hover:border-[var(--color-primary)]/60 text-white text-xs sm:text-sm uppercase tracking-widest font-semibold transition-all shadow-md group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] cursor-pointer"
             data-cursor="pointer"
           >
-            <ShieldCheck className="w-4 h-4 text-[var(--color-primary)] group-hover:scale-110 transition-transform" />
-            <span>See the proof</span>
+            <Wallet className="w-4 h-4 text-[var(--color-primary)] group-hover:scale-110 transition-transform" />
+            <span>Budget management</span>
             <ArrowDown className="w-3.5 h-3.5 text-white/40 group-hover:text-white transition-colors ml-1" />
           </button>
 

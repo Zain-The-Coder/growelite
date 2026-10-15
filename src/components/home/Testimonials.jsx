@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { reviews as defaultReviews } from "@/data/reviews";
 
-export default function Testimonials({ reviews = [] }) {
+export default function Testimonials({ reviews = defaultReviews }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!reviews || reviews.length === 0) {
@@ -94,11 +95,15 @@ export default function Testimonials({ reviews = [] }) {
               data-cursor="drag"
             >
               {/* Star Rating */}
-              <div className="flex items-center gap-1.5 mb-8">
-                {[...Array(current.rating || 5)].map((_, i) => (
+              <div className="flex items-center gap-1.5 mb-8" role="img" aria-label={`${current.rating || 5} out of 5 stars`}>
+                {[1, 2, 3, 4, 5].map((star) => (
                   <Star
-                    key={i}
-                    className="w-4 h-4 fill-primary text-primary"
+                    key={star}
+                    className={`w-4 h-4 ${
+                      star <= (current.rating || 5)
+                        ? "fill-primary text-primary"
+                        : "fill-white/10 text-white/20"
+                    }`}
                   />
                 ))}
               </div>

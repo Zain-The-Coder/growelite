@@ -1,9 +1,10 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Star, Quote, ChevronLeft, ChevronRight, MessageSquareQuote } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight, MessageSquareQuote, ChevronDown } from "lucide-react";
+import { reviews as defaultReviews } from "@/data/reviews";
 
-function ReviewCard({ review, isDuplicate = false }) {
+function ReviewCard({ review, isDuplicate = false, isMobile = false }) {
   const initials = (review.name || "GE")
     .split(" ")
     .map((n) => n[0])
@@ -18,8 +19,12 @@ function ReviewCard({ review, isDuplicate = false }) {
     <div
       tabIndex={isDuplicate ? -1 : 0}
       aria-hidden={isDuplicate ? true : undefined}
-      className="card relative w-[280px] sm:w-[360px] shrink-0 p-6 sm:p-7 flex flex-col justify-between select-none transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--color-border-primary)] hover:shadow-[0_0_35px_var(--color-primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] group cursor-grab active:cursor-grabbing snap-start bg-[var(--color-surface)]"
-      data-cursor="drag"
+      className={
+        isMobile
+          ? "card relative w-full p-6 flex flex-col justify-between select-none bg-[var(--color-surface)] border border-[var(--color-surface-border)] rounded-2xl shadow-sm transition-all duration-300 hover:border-[var(--color-border-primary)]"
+          : "card relative w-[280px] sm:w-[360px] shrink-0 p-5 sm:p-7 flex flex-col justify-between select-none transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--color-border-primary)] hover:shadow-[0_0_35px_var(--color-primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] group cursor-grab active:cursor-grabbing snap-start bg-[var(--color-surface)]"
+      }
+      data-cursor={isMobile ? "default" : "drag"}
     >
       {/* Large faint gold quote mark in top corner */}
       <Quote
@@ -28,18 +33,30 @@ function ReviewCard({ review, isDuplicate = false }) {
       />
 
       <div className="relative z-10">
-        {/* Stars */}
+        {/* Stars: Always render 5 star slots showing filled vs empty */}
         <div
-          className="flex items-center gap-1 mb-4"
+          className="flex items-center gap-1 mb-4 flex-wrap"
           role="img"
           aria-label={`${review.rating} out of 5 stars`}
         >
-          {[...Array(review.rating || 5)].map((_, i) => (
-            <Star
-              key={i}
-              className="w-4 h-4 fill-[var(--color-primary)] text-[var(--color-primary)]"
-            />
-          ))}
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                className={`w-4 h-4 ${
+                  star <= (review.rating || 5)
+                    ? "fill-[var(--color-primary)] text-[var(--color-primary)]"
+                    : "fill-white/10 text-white/20"
+                }`}
+              />
+            ))}
+          </div>
+
+          {review.impact && (
+            <span className="ml-auto text-[10px] font-mono uppercase tracking-wider text-[var(--color-primary-light)] px-2 py-0.5 rounded-full bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20">
+              {review.impact}
+            </span>
+          )}
         </div>
 
         {/* Quote text */}
@@ -69,7 +86,7 @@ function ReviewCard({ review, isDuplicate = false }) {
   );
 }
 
-export default function ReviewSliders({ reviews = [] }) {
+export default function ReviewSliders({ reviews = defaultReviews }) {
   const containerRef = useRef(null);
   const row1Ref = useRef(null);
   const row2Ref = useRef(null);
@@ -77,6 +94,7 @@ export default function ReviewSliders({ reviews = [] }) {
   const [isPaused, setIsPaused] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [progress, setProgress] = useState(0.2);
+  const [showAllMobile, setShowAllMobile] = useState(false);
 
   // Position offsets
   const pos1Ref = useRef(0);
@@ -88,7 +106,6 @@ export default function ReviewSliders({ reviews = [] }) {
   const pauseTimerRef = useRef(null);
 
   const reviewCount = reviews.length;
-  const isSingleRow = reviewCount >= 4 && reviewCount < 8;
   const isTwoRows = reviewCount >= 8;
 
   // Check prefers-reduced-motion
@@ -108,7 +125,7 @@ export default function ReviewSliders({ reviews = [] }) {
     }, ms);
   }, []);
 
-  // Continuous animation loop using requestAnimationFrame (only if reviewCount >= 4)
+  // Continuous animation loop using requestAnimationFrame (Desktop only, reviewCount >= 4)
   useEffect(() => {
     if (isReducedMotion || reviewCount < 4) return;
 
@@ -116,6 +133,7 @@ export default function ReviewSliders({ reviews = [] }) {
     const speed = 0.75;
 
     const loop = () => {
+      // Only animate if desktop row is visible in DOM
       if (!isPaused && !isDraggingRef.current) {
         pos1Ref.current -= speed;
         if (isTwoRows) {
@@ -164,7 +182,7 @@ export default function ReviewSliders({ reviews = [] }) {
     };
   }, [isPaused, isReducedMotion, reviewCount, isTwoRows]);
 
-  // Pointer Drag handling
+  // Pointer Drag handling (Desktop only)
   const handlePointerDown = (e, rowNum) => {
     if (isReducedMotion || reviewCount < 4) return;
     isDraggingRef.current = true;
@@ -271,6 +289,8 @@ export default function ReviewSliders({ reviews = [] }) {
     ? [...reviews].reverse().concat([...reviews].reverse())
     : [];
 
+  const mobileVisibleReviews = showAllMobile ? reviews : reviews.slice(0, 4);
+
   return (
     <section
       id="reviews"
@@ -278,9 +298,9 @@ export default function ReviewSliders({ reviews = [] }) {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
-      className="relative py-24 sm:py-32 section-surface border-b border-[var(--color-surface-border)] overflow-hidden"
+      className="relative py-20 sm:py-32 section-surface border-b border-[var(--color-surface-border)] overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-14 sm:mb-16 text-center">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-12 sm:mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-surface-border)] mb-4 text-xs uppercase tracking-[0.22em] text-[var(--color-primary)] font-semibold shadow-sm">
           <MessageSquareQuote className="w-3.5 h-3.5 text-[var(--color-primary)]" />
           <span>CLIENT FEEDBACK</span>
@@ -295,8 +315,41 @@ export default function ReviewSliders({ reviews = [] }) {
         </p>
       </div>
 
+      {/* ======================================================== */}
+      {/* 1. MOBILE VIEW: Clean Vertical Stack (NO horizontal scroll) */}
+      {/* ======================================================== */}
+      <div className="md:hidden max-w-xl mx-auto px-5 space-y-4">
+        {mobileVisibleReviews.map((r) => (
+          <ReviewCard key={`mob-${r.id}`} review={r} isMobile={true} />
+        ))}
+
+        {reviews.length > 4 && (
+          <div className="pt-4 text-center">
+            <button
+              type="button"
+              onClick={() => setShowAllMobile((prev) => !prev)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-surface)] border border-[var(--color-border-primary)]/60 text-white text-xs uppercase tracking-widest font-semibold shadow-md active:scale-95 transition-all cursor-pointer hover:border-[var(--color-primary)]"
+            >
+              <span>
+                {showAllMobile
+                  ? "Show fewer reviews"
+                  : `Show all reviews (${reviews.length})`}
+              </span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 text-[var(--color-primary-light)] transition-transform duration-300 ${
+                  showAllMobile ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* ======================================================== */}
+      {/* 2. DESKTOP VIEW: Continuous Horizontal Marquee Slider */}
+      {/* ======================================================== */}
       <div
-        className="relative w-full overflow-hidden"
+        className="hidden md:block relative w-full overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => !isDraggingRef.current && setIsPaused(false)}
         onFocus={() => setIsPaused(true)}
@@ -343,7 +396,7 @@ export default function ReviewSliders({ reviews = [] }) {
               ))}
             </div>
 
-            {/* Row 2 (if 8+ reviews): Sliding Right */}
+            {/* Row 2: Sliding Right */}
             {isTwoRows && (
               <div
                 className="flex gap-6 will-change-transform cursor-grab active:cursor-grabbing"
@@ -363,8 +416,8 @@ export default function ReviewSliders({ reviews = [] }) {
         )}
       </div>
 
-      {/* Manual Controls & Progress Bar */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 mt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+      {/* Manual Controls & Progress Bar (Desktop only) */}
+      <div className="hidden md:flex max-w-7xl mx-auto px-5 sm:px-8 mt-12 flex-col sm:flex-row items-center justify-between gap-6">
         <div className="w-full sm:w-64 flex items-center gap-3">
           <span className="text-[10px] font-mono uppercase tracking-wider text-white/40">
             AUTO

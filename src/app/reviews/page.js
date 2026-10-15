@@ -2,9 +2,7 @@ import ReviewsHero from "@/components/reviews/ReviewsHero";
 import ReviewSliders from "@/components/reviews/ReviewSliders";
 import OurClients from "@/components/reviews/OurClients";
 import ReviewsCTA from "@/components/reviews/ReviewsCTA";
-import { getReviews } from "@/lib/getReviews";
-
-
+import { reviews, reviewStats } from "@/data/reviews";
 
 export const metadata = {
   title: "Reviews & Clients | GrowElite — Digital Marketing & Tech Agency",
@@ -20,15 +18,13 @@ export const metadata = {
   },
 };
 
-export default async function ReviewsPage() {
-  const { reviews, count, average } = await getReviews();
-
+export default function ReviewsPage() {
   return (
     <main className="relative w-full overflow-hidden bg-[var(--color-background)]">
       {/* 1. Hero Section */}
-      <ReviewsHero average={average} count={count} />
+      <ReviewsHero average={reviewStats.average} count={reviewStats.count} />
 
-      {/* 2. Client Reviews (Horizontal Sliders or Empty State) */}
+      {/* 2. Client Reviews (Horizontal Sliders with 10 reviews) */}
       <ReviewSliders reviews={reviews} />
 
       {/* 3. Our Clients (Marquee & Responsive Grid) */}

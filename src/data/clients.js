@@ -79,8 +79,15 @@ export const clients = [
   {
     id: "scents-n-stories",
     name: "Scents N Stories",
-    industry: "Fragrance & Retail",
+    industry: "Fragrance, E-commerce & Retail",
     description:
-      "Premium fragrance brand running an omnichannel model across e-commerce and retail. We structured full-funnel paid social, led growth planning cycles, and ran hyper-targeted retention and acquisition to grow market share.",
+      "Fragrance brand with e-commerce and retail operations. We handled their full funnel, growth planning, and scaling.",
+  },
+  {
+    id: "gulshinwari-restaurant",
+    name: "GulShinwari Restaurant",
+    industry: "Restaurant & Hospitality",
+    description:
+      "All aspects of online marketing managed end-to-end, from viral social media content to hyper-targeted local footfall and reservation growth.",
   },
 ];
