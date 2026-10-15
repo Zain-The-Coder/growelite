@@ -71,7 +71,7 @@ export default function Hero() {
                   transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   className="font-display text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tighter leading-[0.94] text-white/90"
                 >
-                  THAT COMMAND SCALE.
+                  THAT COMMAND SCALE
                 </motion.h1>
               </div>
             </div>

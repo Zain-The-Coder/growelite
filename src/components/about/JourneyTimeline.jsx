@@ -113,7 +113,7 @@ export default function JourneyTimeline() {
           </div>
 
           <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
-            Evolution &amp; Milestones.
+            Evolution &amp; Milestones
           </h2>
 
           <p className="text-white/60 text-sm sm:text-base font-light">

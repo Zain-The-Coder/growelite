@@ -57,7 +57,7 @@ export default function AboutHero() {
           </SplitText>{" "}
           <span className="text-gradient inline-block">
             <SplitText type="words" delay={0.4} stagger={0.035}>
-              increase your revenue in 3 to 4 months.
+              increase your revenue in 3 to 4 months
             </SplitText>
           </span>
         </h1>

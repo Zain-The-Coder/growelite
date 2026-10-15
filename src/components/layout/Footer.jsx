@@ -13,15 +13,15 @@ export default function Footer() {
 
   useEffect(() => {
     setYear(new Date().getFullYear().toString());
-    const updateTime = () => {
-      const options = {
-        timeZone: "America/New_York",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      };
-      setTimeNYC(new Intl.DateTimeFormat([], options).format(new Date()));
+  const updateTime = () => {
+  const options = {
+    timeZone: "Asia/Karachi",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  };
+  setTimeNYC(new Intl.DateTimeFormat([], options).format(new Date()));
     };
 
     updateTime();
@@ -96,23 +96,6 @@ export default function Footer() {
               </Link>
             ))}
           </div>
-        </div>
-
-        {/* Massive Interactive Agency Wordmark with Logo */}
-        <div className="py-16 md:py-24 text-center select-none overflow-hidden group">
-          <Link href="/" className="inline-flex flex-col items-center justify-center gap-6" data-cursor="pointer">
-            <div className="p-3 sm:p-4 rounded-3xl bg-white/95 shadow-2xl shadow-primary/20 border border-white/40 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6">
-              <Logo
-                markOnly
-                width={80}
-                height={80}
-                className="w-16 h-16 sm:w-20 sm:h-20"
-              />
-            </div>
-            <h2 className="font-display text-[14vw] font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white/90 via-white/50 to-white/10 hover:from-primary hover:via-primary-light hover:to-white transition-all duration-700 uppercase">
-              {SITE_NAME}
-            </h2>
-          </Link>
         </div>
 
         {/* Bottom copyright & Back-to-Top bar */}

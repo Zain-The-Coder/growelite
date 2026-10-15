@@ -233,29 +233,7 @@ export default function ChatShowcase() {
         {/* Chat Window Container with Floating Side Chips */}
         <div className="relative max-w-2xl mx-auto">
           {/* Floating Side Chips (Hidden on small screens, shown on desktop) */}
-          <div className="hidden lg:flex flex-col gap-4 absolute -left-52 top-16 z-20 pointer-events-none">
-            <div className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-white/80 animate-float">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
-              <span>Answers calls 24/7</span>
-            </div>
-          </div>
 
-          <div className="hidden lg:flex flex-col gap-4 absolute -right-56 top-24 z-20 pointer-events-none">
-            <div
-              className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-white/80 animate-float"
-              style={{ animationDelay: "1.2s" }}
-            >
-              <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_var(--color-primary)]" />
-              <span>Books appointments automatically</span>
-            </div>
-            <div
-              className="px-4 py-2.5 rounded-2xl bg-surface/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-white/80 animate-float self-end"
-              style={{ animationDelay: "2.4s" }}
-            >
-              <span className="w-2 h-2 rounded-full bg-primary-light shadow-[0_0_8px_var(--color-primary-light)]" />
-              <span>Syncs with your CRM</span>
-            </div>
-          </div>
 
           {/* Main Chat Showcase Window */}
           <div className="relative rounded-3xl bg-surface/60 border border-white/15 backdrop-blur-2xl shadow-2xl shadow-black/50 overflow-hidden flex flex-col">

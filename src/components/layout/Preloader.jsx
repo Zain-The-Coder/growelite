@@ -2,100 +2,31 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { preloaderTagline } from "@/data/site";
 import Logo from "@/components/ui/Logo";
 
-const LINE1_WORDS = [
-  {
-    chars: [
-      { char: "W", index: 0 },
-      { char: "e", index: 1 },
-      { char: "l", index: 2 },
-      { char: "c", index: 3, flicker: "neon-flicker-a" },
-      { char: "o", index: 4 },
-      { char: "m", index: 5 },
-      { char: "e", index: 6 },
-    ],
-  },
-  {
-    chars: [
-      { char: "t", index: 7 },
-      { char: "o", index: 8 },
-    ],
-  },
-  {
-    chars: [
-      { char: "G", index: 9, flicker: "neon-flicker-b" },
-      { char: "r", index: 10 },
-      { char: "o", index: 11 },
-      { char: "w", index: 12 },
-      { char: "E", index: 13 },
-      { char: "l", index: 14 },
-      { char: "i", index: 15, flicker: "neon-flicker-c" },
-      { char: "t", index: 16 },
-      { char: "e", index: 17 },
-    ],
-  },
-];
-
 export default function Preloader() {
-  const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [removeDOM, setRemoveDOM] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    // Check if session has already seen preloader
-    const hasLoadedBefore = sessionStorage.getItem("has_seen_preloader");
-    if (hasLoadedBefore) {
-      setIsLoaded(true);
-      setRemoveDOM(true);
-      return;
-    }
-
-    // Disable body scroll during preload
+    // Disable body scroll while preloader is active
     document.body.style.overflow = "hidden";
 
-    let current = 0;
-    const interval = setInterval(() => {
-      // Non-linear realistic loader increments
-      const jump = Math.floor(Math.random() * 12) + 4;
-      current += jump;
-
-      if (current >= 100) {
-        current = 100;
-        setProgress(100);
-        clearInterval(interval);
-
-        setTimeout(() => {
-          setIsLoaded(true);
-          document.body.style.overflow = "";
-          sessionStorage.setItem("has_seen_preloader", "true");
-          // Signal hero animations
-          window.dispatchEvent(new CustomEvent("preloaderComplete"));
-        }, 350);
-
-        setTimeout(() => {
-          setRemoveDOM(true);
-        }, 1400);
-      } else {
-        setProgress(current);
-      }
-    }, 45);
-
-    // Guaranteed fallback timeout so preloader can never hang or freeze
-    const safetyTimeout = setTimeout(() => {
-      clearInterval(interval);
+    // Stay active for 5 seconds on every page load / refresh
+    const timer = setTimeout(() => {
       setIsLoaded(true);
       document.body.style.overflow = "";
-      sessionStorage.setItem("has_seen_preloader", "true");
       window.dispatchEvent(new CustomEvent("preloaderComplete"));
-      setTimeout(() => setRemoveDOM(true), 1200);
-    }, 1800);
+
+      // Remove from DOM after exit animations complete
+      setTimeout(() => {
+        setRemoveDOM(true);
+      }, 1200);
+    }, 5000);
 
     return () => {
-      clearInterval(interval);
-      clearTimeout(safetyTimeout);
+      clearTimeout(timer);
       document.body.style.overflow = "";
     };
   }, []);
@@ -109,197 +40,99 @@ export default function Preloader() {
           key="preloader-root"
           className="fixed inset-0 z-[10000] pointer-events-none flex flex-col justify-between overflow-hidden select-none"
         >
-          {/* Top Curtain Panel (Navy Brand Background) */}
+          {/* Main Background Panel */}
           <motion.div
             key="curtain-panel"
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute inset-0 bg-background flex flex-col items-center justify-center p-5 sm:p-10 z-10 pointer-events-auto overflow-hidden"
+            className="absolute inset-0 bg-background flex flex-col items-center justify-center p-6 sm:p-10 z-10 pointer-events-auto overflow-hidden"
           >
-            {/* SVG Displacement Filters for Electric Crackle Edge */}
-            <svg
-              className="absolute w-0 h-0 pointer-events-none opacity-0 overflow-hidden"
+            {/* Ambient Background Glow */}
+            <div
+              className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full pointer-events-none blur-3xl opacity-25 -z-10"
+              style={{
+                background:
+                  "radial-gradient(circle, var(--color-primary) 0%, transparent 70%)",
+              }}
               aria-hidden="true"
-              focusable="false"
-            >
-              <defs>
-                {/* Desktop: Scale 3.2, 2 octaves */}
-                <filter
-                  id="neon-electric-desktop"
-                  x="-20%"
-                  y="-20%"
-                  width="140%"
-                  height="140%"
-                  colorInterpolationFilters="sRGB"
-                >
-                  <feTurbulence
-                    type="fractalNoise"
-                    baseFrequency="0.045 0.08"
-                    numOctaves="2"
-                    result="noise"
-                    seed="1"
-                  >
-                    <animate
-                      attributeName="seed"
-                      values="1;4;8;2;9;5;12;3;7;1"
-                      dur="1.2s"
-                      repeatCount="indefinite"
-                      calcMode="discrete"
-                    />
-                    <animate
-                      attributeName="baseFrequency"
-                      values="0.04 0.075; 0.048 0.09; 0.042 0.08; 0.04 0.075"
-                      dur="2.4s"
-                      repeatCount="indefinite"
-                    />
-                  </feTurbulence>
-                  <feDisplacementMap
-                    in="SourceGraphic"
-                    in2="noise"
-                    scale="3.2"
-                    xChannelSelector="R"
-                    yChannelSelector="G"
-                  />
-                </filter>
+            />
 
-                {/* Mobile: Scale 2, 1 octave for smooth 60fps */}
-                <filter
-                  id="neon-electric-mobile"
-                  x="-20%"
-                  y="-20%"
-                  width="140%"
-                  height="140%"
-                  colorInterpolationFilters="sRGB"
-                >
-                  <feTurbulence
-                    type="fractalNoise"
-                    baseFrequency="0.045 0.08"
-                    numOctaves="1"
-                    result="noise"
-                    seed="1"
-                  >
-                    <animate
-                      attributeName="seed"
-                      values="1;5;2;7;3;6;1"
-                      dur="1.5s"
-                      repeatCount="indefinite"
-                      calcMode="discrete"
-                    />
-                  </feTurbulence>
-                  <feDisplacementMap
-                    in="SourceGraphic"
-                    in2="noise"
-                    scale="2"
-                    xChannelSelector="R"
-                    yChannelSelector="G"
-                  />
-                </filter>
-              </defs>
-            </svg>
-
-            {/* Content Container (Fades out when load completes) */}
+            {/* Content Container */}
             <motion.div
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.28, ease: "easeOut" }}
-              className="flex flex-col items-center justify-center text-center max-w-4xl w-full mx-auto px-5 select-none"
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="flex flex-col items-center justify-center text-center max-w-2xl w-full mx-auto px-4 select-none"
             >
-              {/* 1. Logo: fades and scales in first with soft glow */}
+              {/* 1. Welcome Text */}
+              <motion.h1
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 14 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display font-semibold text-2xl sm:text-3xl md:text-4xl text-white tracking-tight"
+              >
+                Welcome to <span className="text-primary">GrowElite</span>
+              </motion.h1>
+
+              {/* 2. Logo */}
               <motion.div
                 initial={
                   shouldReduceMotion
                     ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.88 }
+                    : { opacity: 0, scale: 0.94 }
                 }
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                className="mb-6 sm:mb-8 flex items-center justify-center relative"
+                transition={{
+                  delay: 0.3,
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="my-6 sm:my-8 flex items-center justify-center relative"
               >
-                {/* Soft ambient glow behind logo */}
-                <div
-                  className="absolute w-36 h-36 sm:w-48 sm:h-48 rounded-full pointer-events-none blur-2xl opacity-40 -z-10"
-                  style={{
-                    background:
-                      "radial-gradient(circle, var(--color-neon) 0%, transparent 70%)",
-                  }}
-                  aria-hidden="true"
-                />
                 <Logo
                   priority
-                  width={220}
-                  alt="GrowElite - Digital Innovation"
-                  className="w-[160px] md:w-[220px] h-auto object-contain max-w-full drop-shadow-[0_0_24px_var(--color-primary-glow)]"
-                  style={{
-                    width: "clamp(160px, 45vw, 220px)",
-                    height: "auto",
-                  }}
+                  width={200}
+                  alt="GrowElite Logo"
+                  className="w-[150px] sm:w-[180px] md:w-[210px] h-auto object-contain max-w-full drop-shadow-[0_0_24px_var(--color-primary-glow)]"
                 />
               </motion.div>
 
-              {/* 2. Neon Text block with breathing pulse */}
-              <div className="neon-breathing-sign flex flex-col items-center justify-center text-center w-full">
-                {/* Line 1: "Welcome to GrowElite" */}
-                <h1 className="neon-tube-line1 text-[clamp(1.75rem,6.5vw,4.5rem)] leading-[1.15] text-center max-w-full">
-                  {LINE1_WORDS.map((wordObj, wIdx) => (
-                    <span key={wIdx} className="inline-block whitespace-nowrap">
-                      {wordObj.chars.map((charObj, cIdx) => {
-                        const delay = 0.14 + charObj.index * 0.018;
-                        return (
-                          <span
-                            key={cIdx}
-                            className="inline-block neon-letter-item"
-                            style={{ animationDelay: `${delay}s` }}
-                          >
-                            <span className={charObj.flicker || undefined}>
-                              {charObj.char}
-                            </span>
-                          </span>
-                        );
-                      })}
-                      {wIdx < LINE1_WORDS.length - 1 && (
-                        <span className="inline-block w-[0.28em]">&nbsp;</span>
-                      )}
-                    </span>
-                  ))}
-                </h1>
-
-                {/* Line 2: "Digital Marketing & Tech Agency" */}
-                <motion.h2
-                  initial={
-                    shouldReduceMotion
-                      ? { opacity: 1, y: 0 }
-                      : { opacity: 0, y: 6 }
-                  }
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.54,
-                    duration: 0.32,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="neon-tube-line2 mt-2 sm:mt-3 text-[clamp(0.8rem,2.6vw,1.5rem)] leading-snug text-center max-w-full"
-                >
-                  <span className="inline-block">Digital Marketing</span>{" "}
-                  <span className="inline-block">&amp; Tech Agency</span>
-                </motion.h2>
-              </div>
-
-              {/* 3. Simple White Tagline */}
+              {/* 3. Agency Subtitle */}
               <motion.p
                 initial={
                   shouldReduceMotion
                     ? { opacity: 1, y: 0 }
-                    : { opacity: 0, y: 8 }
+                    : { opacity: 0, y: 12 }
                 }
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: 0.74,
-                  duration: 0.32,
+                  delay: 0.6,
+                  duration: 0.8,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="mt-6 sm:mt-8 font-sans font-normal text-[var(--text-primary)] text-[clamp(0.85rem,2.4vw,1.25rem)] tracking-normal text-center max-w-lg mx-auto leading-relaxed"
+                className="text-xs sm:text-sm md:text-base uppercase tracking-[0.22em] text-text-secondary font-medium"
               >
-                {preloaderTagline}
+                digital marketing and tech agency
               </motion.p>
+
+              {/* 4. Elegant Minimal 5s Progress Bar */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="w-44 sm:w-56 h-[2px] bg-white/10 rounded-full mt-10 overflow-hidden"
+              >
+                <motion.div
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 4.8, ease: "easeInOut" }}
+                  className="h-full bg-primary rounded-full shadow-[0_0_8px_var(--color-primary)]"
+                />
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -308,7 +141,11 @@ export default function Preloader() {
             key="curtain-accent"
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}
-            transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
+            transition={{
+              duration: 1.1,
+              ease: [0.76, 0, 0.24, 1],
+              delay: 0.05,
+            }}
             className="absolute inset-0 bg-primary z-[5]"
           />
         </div>

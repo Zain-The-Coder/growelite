@@ -32,7 +32,7 @@ export default function MeetFounder() {
             <span>LEADERSHIP & ROOTS</span>
           </div>
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-            MEET THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-white">FOUNDER</span>.
+            MEET THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-white">FOUNDER</span>
           </h2>
         </div>
 
@@ -125,7 +125,7 @@ export default function MeetFounder() {
               <div className="relative p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 mb-6">
                 <Quote className="w-6 h-6 text-primary-light mb-2 opacity-60" />
                 <p className="text-white/90 text-sm sm:text-base md:text-lg font-medium italic leading-relaxed">
-                  &ldquo;{founder.quote}&rdquo;
+                  {founder.quote}
                 </p>
               </div>
 

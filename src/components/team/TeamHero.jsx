@@ -52,7 +52,7 @@ export default function TeamHero() {
         {/* Headline */}
         <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[1.08] tracking-tight text-white mb-6">
           <SplitText type="words" delay={0.15} stagger={0.035}>
-            The minds behind GrowElite.
+            The minds behind GrowElite
           </SplitText>
         </h1>
 

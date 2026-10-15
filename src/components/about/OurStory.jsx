@@ -86,7 +86,7 @@ export default function OurStory() {
             </div>
 
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-white leading-tight">
-              Our Story.
+              Our Story
             </h2>
 
             <p className="text-sm font-mono uppercase tracking-wider text-white/50 max-w-sm hidden lg:block">

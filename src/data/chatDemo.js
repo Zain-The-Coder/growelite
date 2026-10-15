@@ -1,6 +1,7 @@
 export const chatDemoData = {
   label: "AI VOICE AGENTS",
-  heading: "We build AI voice agents that answer, qualify, and book, 24/7.",
+  heading: `We build AI voice agents that answer & qualify 
+  24/7`,
   mutedLine:
     "Never miss a lead again. Your AI agent talks to every caller like your best salesperson.",
   header: {

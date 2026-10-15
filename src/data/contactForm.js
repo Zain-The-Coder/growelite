@@ -9,7 +9,7 @@ export const budgetOptions = [
 export const contactFormContent = {
   hero: {
     label: "CONTACT",
-    headline: "Let's build something monumental.",
+    headline: "Let's build something monumental",
     subline: "Tell us about your project and we'll get back to you with the next steps.",
   },
   consent: "By sending this, you agree that we may contact you about your project.",

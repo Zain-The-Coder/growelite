@@ -16,7 +16,7 @@ export default function ServicesStrip() {
         </div>
 
         <h2 className="font-display text-2xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
-          Engineered for Growth.
+          Engineered for Growth
         </h2>
       </div>
 

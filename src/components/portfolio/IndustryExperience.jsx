@@ -85,7 +85,7 @@ export default function IndustryExperience() {
           </div>
 
           <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
-            Industry experience.
+            Industry experience
           </h2>
 
           <p className="text-white/60 text-sm sm:text-base font-light">

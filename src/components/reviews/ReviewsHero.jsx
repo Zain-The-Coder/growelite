@@ -52,7 +52,7 @@ export default function ReviewsHero() {
         {/* Giant Split-Text Headline */}
         <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[1.08] tracking-tight text-white mb-6">
           <SplitText type="words" delay={0.15} stagger={0.035}>
-            Brands that grew with us.
+            Brands that grew with us
           </SplitText>
         </h1>
 

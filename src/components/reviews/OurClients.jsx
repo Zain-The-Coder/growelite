@@ -175,7 +175,7 @@ export default function OurClients() {
           </div>
 
           <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
-            Our clients.
+            Our clients
           </h2>
 
           <p className="text-white/60 text-sm sm:text-base font-light">
