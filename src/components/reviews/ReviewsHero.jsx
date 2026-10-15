@@ -2,10 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Sparkles, MessageSquareQuote, Building2, ArrowDown } from "lucide-react";
+import { Sparkles, MessageSquareQuote, Building2, ArrowDown, Star } from "lucide-react";
 import SplitText from "@/components/ui/SplitText";
 
-export default function ReviewsHero() {
+export default function ReviewsHero({ average = 0, count = 0 }) {
   const containerRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -61,10 +61,26 @@ export default function ReviewsHero() {
           initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="text-white/70 max-w-2xl text-base sm:text-lg md:text-xl font-light leading-relaxed mb-10"
+          className="text-white/70 max-w-2xl text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6"
         >
           Real campaigns, real budgets, real results. Here&apos;s what our clients say, and the brands we&apos;ve worked with.
         </motion.p>
+
+        {/* Rating & Count Badge */}
+        {count > 0 && (
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-surface-border)] text-xs text-white/90 mb-8 font-medium shadow-sm"
+          >
+            <Star className="w-3.5 h-3.5 fill-[var(--color-primary)] text-[var(--color-primary)]" />
+            <span>
+              <strong className="text-[var(--color-primary-light)] font-bold">{average}</strong> average rating from{" "}
+              <strong className="text-white font-semibold">{count}</strong> {count === 1 ? "review" : "reviews"}
+            </span>
+          </motion.div>
+        )}
 
         {/* Two Quick Links */}
         <motion.div

@@ -74,13 +74,13 @@ npm run start
 │   │   ├── site.js                # Agency brand name, navigation, clients, and socials
 │   │   ├── services.js            # Services list, tags, and deliverables
 │   │   ├── projects.js            # Featured portfolio case studies
-│   │   ├── reviews.js             # Testimonials, authors, and client metrics
 │   │   ├── stats.js               # Numbers & statistics for the counter section
 │   │   └── process.js             # 4-stage execution process steps
 │   │
 │   └── lib/
 │       ├── easing.js              # Bezier curves and easing presets
 │       ├── gsap.js                # GSAP + ScrollTrigger registration
+│       ├── getReviews.js          # Live MongoDB reviews query helper
 │       └── utils.js               # Utility functions (cn, lerp, clamp)
 │
 ├── jsconfig.json                  # Path alias `@/*` configuration
@@ -141,9 +141,71 @@ All website content is completely separated into the `src/data/` directory:
 | **Colors, CSS Variables, Background Palette** | [`src/app/globals.css`](file:///d:/Web%20Development/grow%20elite/src/app/globals.css) |
 | **Services, Tags, Deliverables** | [`src/data/services.js`](file:///d:/Web%20Development/grow%20elite/src/data/services.js) |
 | **Portfolio & Verified Proofs** | [`src/data/proofs.js`](file:///d:/Web%20Development/grow%20elite/src/data/proofs.js) & [`src/data/portfolio.js`](file:///d:/Web%20Development/grow%20elite/src/data/portfolio.js) |
-| **Client Reviews & Logos** | [`src/data/reviews.js`](file:///d:/Web%20Development/grow%20elite/src/data/reviews.js) & [`src/data/clients.js`](file:///d:/Web%20Development/grow%20elite/src/data/clients.js) |
+| **Client Logos** | [`src/data/clients.js`](file:///d:/Web%20Development/grow%20elite/src/data/clients.js) |
+| **Reviews & Feedback System** | MongoDB Atlas via [`src/lib/getReviews.js`](file:///d:/Web%20Development/grow%20elite/src/lib/getReviews.js) & `/admin` |
 | **CEO Story & Leadership** | [`src/data/ceo.js`](file:///d:/Web%20Development/grow%20elite/src/data/ceo.js) |
 | **Core Values** | [`src/data/values.js`](file:///d:/Web%20Development/grow%20elite/src/data/values.js) |
+
+---
+
+## 🔒 Reviews and Admin Setup
+
+GrowElite includes a private, unlisted review collection and management system with one-time, time-limited review links and direct MongoDB storage.
+
+### 1. Environment Variables
+
+Add the following variables to `.env.local`:
+
+```env
+# MongoDB Atlas connection string (Required for reviews & admin)
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/growelite?retryWrites=true&w=majority
+
+# Admin login password (min 12 characters recommended)
+ADMIN_PASSWORD=your_secure_master_password
+
+# Admin session JWT encryption secret (min 32 random characters)
+ADMIN_SESSION_SECRET=your_generated_random_secret_hex
+
+# Public site URL used to construct client review links (Optional, defaults to request origin)
+NEXT_PUBLIC_SITE_URL=https://growelite.digital
+
+# Review link lifetime in hours (Optional, default: 72 = 3 days)
+TOKEN_TTL_HOURS=72
+```
+
+### 2. Generating `ADMIN_SESSION_SECRET`
+
+Generate a cryptographically secure 32-byte hex secret using Node.js:
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+Copy the printed string and assign it to `ADMIN_SESSION_SECRET` in your `.env.local` or hosting provider settings.
+
+### 3. MongoDB Atlas Network Access Note
+
+When using MongoDB Atlas:
+1. Go to **Network Access** in the MongoDB Atlas dashboard.
+2. Ensure your server or deployment IP address is whitelisted. For serverless hosting environments (e.g., Vercel, AWS), add `0.0.0.0/0` (Allow Access from Anywhere) with secure database credentials.
+3. Verify that your database user has read and write privileges on the database.
+
+### 4. Admin Workflow & Security
+
+1. **Hidden URL**: Navigate directly to `/admin` in your browser. This route is unlinked from the Navbar, Footer, and sitemaps, and blocked from search engine crawlers with `noindex`.
+2. **Authentication**: Enter your `ADMIN_PASSWORD`. Rate limiting prevents brute force (max 5 failed attempts per 15 minutes, with a 500ms delay per failure). Successful login sets an `HttpOnly`, `SameSite=Strict` signed JWT session cookie valid for 8 hours.
+3. **Generate Review Links**:
+   - In the **Generate link** tab, optionally enter the client name and brand name.
+   - Click **Generate Review Link**. The raw token is generated via `crypto.randomBytes(32)` as base64url.
+   - Only the SHA-256 hash is saved to the database. The raw link is shown **only once**.
+   - Use the **Copy Link** button or one-click **Share on WhatsApp** button to send it directly to your client.
+4. **Client Submission**:
+   - The client visits `https://<site>/review/<token>`.
+   - Opening the link does **not** consume it (preview crawlers won't burn the link).
+   - The client selects a 1–5 star rating with gold interactive animations, writes feedback, and agrees to the public display consent.
+   - On submission, the token is claimed atomically (`findOneAndUpdate` checking `usedAt: null`), the review is saved to MongoDB, and pages (`/` and `/reviews`) are instantly revalidated.
+   - Once submitted, any reload displays the generic invalid/expired screen.
+5. **Manage Reviews**:
+   - In the **Reviews** tab on `/admin`, monitor metrics (total reviews, average rating, active links).
+   - Instantly toggle any review between **Published** and **Hidden**, or permanently delete spam/test reviews. Changes instantly revalidate public pages.
 
 ---
 
@@ -154,3 +216,4 @@ All website content is completely separated into the `src/data/` directory:
 3. **Lazy 3D Element**: React Three Fiber Canvas is dynamically imported with `ssr: false` to ensure instant initial page load.
 4. **Adaptive Performance**: Honors `prefers-reduced-motion` and disables fine cursor listeners on touch devices.
 5. **Robust Contact Pipeline**: Validated server-side & client-side with Resend email delivery.
+6. **Private Review Engine**: Token-hashed one-time links, CSRF checks, honeypot traps, and automated revalidation.
